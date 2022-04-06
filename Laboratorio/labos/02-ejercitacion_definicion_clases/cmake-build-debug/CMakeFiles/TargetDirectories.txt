@@ -1,21 +1,21 @@
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej4.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/libreta.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/gtest.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej8.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/gtest_main.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej12.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej1.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej11.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej2.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej10.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej3.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej5.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej15.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej6.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej14.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej7.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej9.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej13.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/truco.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej4.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/libreta.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/gtest.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej8.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/gtest_main.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej12.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej1.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej11.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej2.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej10.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej3.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej5.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej15.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej6.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej14.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej7.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej9.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/ej13.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/truco.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/CMakeFiles/rebuild_cache.dir

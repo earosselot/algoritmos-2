@@ -1,3 +1,7 @@
-**/.idea
-
-**/cmake-build-debug
+**/template-vsc/src
+**/build/
+**/lib/
+**/cmake-build-debug-coverage/
+**/.vscode/
+**/cmake-build-debug/
+**/.idea/

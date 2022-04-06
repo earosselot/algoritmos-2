@@ -1,4 +1,4 @@
-# Install script for directory: D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases
+# Install script for directory: D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

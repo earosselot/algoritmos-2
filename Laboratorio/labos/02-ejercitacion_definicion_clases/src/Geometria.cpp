@@ -9,29 +9,57 @@ using uint = unsigned int;
 class Rectangulo {
     public:
         Rectangulo(uint alto, uint ancho);
-        uint alto();
-        uint ancho();
-        float area();
+        uint alto() const;
+        uint ancho() const;
+        float area() const;
 
     private:
         int alto_;
         int ancho_;
-
 };
 
-Rectangulo::Rectangulo(uint alto, uint ancho) : /* Completar */ {};
+Rectangulo::Rectangulo(uint alto, uint ancho) : alto_(alto), ancho_(ancho) {};
 
-uint Rectangulo::alto() {
-    // Completar
+uint Rectangulo::alto() const {
+    return alto_;
 }
 
-// Completar definición: ancho
+uint Rectangulo::ancho() const {
+    return ancho_;
+}
 
-// Completar definición: area
+float Rectangulo::area() const {
+    return (float) ancho_ * (float) alto_;
+}
 
 // Ejercicio 2
 
-// Clase Elipse
+class Elipse {
+    public:
+        Elipse(uint r_a, uint r_b);
+        uint r_a() const;
+        uint r_b() const;
+        float area() const;
+
+    private:
+        uint r_a_;
+        uint r_b_;
+        float PI;
+};
+
+Elipse::Elipse(uint r_a, uint r_b): r_a_(r_a), r_b_(r_b), PI(3.14) {}
+
+uint Elipse::r_a() const {
+    return r_a_;
+}
+
+uint Elipse::r_b() const {
+    return r_b_;
+}
+
+float Elipse::area() const {
+    return PI * (float) r_a_ * (float) r_b_;
+}
 
 // Ejercicio 3
 
@@ -57,7 +85,25 @@ float Cuadrado::area() {
 
 // Ejercicio 4
 
-// Clase Circulo
+class Circulo {
+public:
+    Circulo(uint radio);
+    uint radio();
+    float area();
+
+private:
+    uint radio_;
+};
+
+Circulo::Circulo(uint radio): radio_(radio) {}
+
+uint Circulo::radio() {
+    return radio_;
+}
+
+float area() {
+    return Elipse::area();
+}
 
 
 // Ejercicio 5

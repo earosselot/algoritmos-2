@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/
+cmake_ninja_workdir = D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target ej4
 
@@ -49,7 +49,7 @@ cmake_ninja_workdir = D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Mat
 
 build cmake_object_order_depends_target_ej4: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej4.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej4_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej4
+build CMakeFiles/ej4.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej4_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej4
   DEFINES = -DEJ=4
   DEP_FILE = CMakeFiles\ej4.dir\tests\test_geometria.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -86,7 +86,7 @@ build ej4.exe: CXX_EXECUTABLE_LINKER__ej4_Debug CMakeFiles/ej4.dir/tests/test_ge
 
 build cmake_object_order_depends_target_libreta: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/libreta.dir/tests/test_libreta.cpp.obj: CXX_COMPILER__libreta_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_libreta.cpp || cmake_object_order_depends_target_libreta
+build CMakeFiles/libreta.dir/tests/test_libreta.cpp.obj: CXX_COMPILER__libreta_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_libreta.cpp || cmake_object_order_depends_target_libreta
   DEP_FILE = CMakeFiles\libreta.dir\tests\test_libreta.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
   OBJECT_DIR = CMakeFiles\libreta.dir
@@ -122,7 +122,7 @@ build libreta.exe: CXX_EXECUTABLE_LINKER__libreta_Debug CMakeFiles/libreta.dir/t
 
 build cmake_object_order_depends_target_gtest: phony || CMakeFiles/gtest.dir
 
-build CMakeFiles/gtest.dir/tests/gtest-1.8.1/gtest-all.cc.obj: CXX_COMPILER__gtest_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/gtest-1.8.1/gtest-all.cc || cmake_object_order_depends_target_gtest
+build CMakeFiles/gtest.dir/tests/gtest-1.8.1/gtest-all.cc.obj: CXX_COMPILER__gtest_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/gtest-1.8.1/gtest-all.cc || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles\gtest.dir\tests\gtest-1.8.1\gtest-all.cc.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
   OBJECT_DIR = CMakeFiles\gtest.dir
@@ -156,7 +156,7 @@ build libgtest.a: CXX_STATIC_LIBRARY_LINKER__gtest_Debug CMakeFiles/gtest.dir/te
 
 build cmake_object_order_depends_target_ej8: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej8.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej8_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej8
+build CMakeFiles/ej8.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej8_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej8
   DEFINES = -DEJ=8
   DEP_FILE = CMakeFiles\ej8.dir\tests\test_recordatorios.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -193,7 +193,7 @@ build ej8.exe: CXX_EXECUTABLE_LINKER__ej8_Debug CMakeFiles/ej8.dir/tests/test_re
 
 build cmake_object_order_depends_target_gtest_main: phony || CMakeFiles/gtest_main.dir
 
-build CMakeFiles/gtest_main.dir/tests/gtest-1.8.1/gtest_main.cc.obj: CXX_COMPILER__gtest_main_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/gtest-1.8.1/gtest_main.cc || cmake_object_order_depends_target_gtest_main
+build CMakeFiles/gtest_main.dir/tests/gtest-1.8.1/gtest_main.cc.obj: CXX_COMPILER__gtest_main_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/gtest-1.8.1/gtest_main.cc || cmake_object_order_depends_target_gtest_main
   DEP_FILE = CMakeFiles\gtest_main.dir\tests\gtest-1.8.1\gtest_main.cc.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
   OBJECT_DIR = CMakeFiles\gtest_main.dir
@@ -227,7 +227,7 @@ build libgtest_main.a: CXX_STATIC_LIBRARY_LINKER__gtest_main_Debug CMakeFiles/gt
 
 build cmake_object_order_depends_target_ej12: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej12.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej12_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej12
+build CMakeFiles/ej12.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej12_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej12
   DEFINES = -DEJ=12
   DEP_FILE = CMakeFiles\ej12.dir\tests\test_recordatorios.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -264,7 +264,7 @@ build ej12.exe: CXX_EXECUTABLE_LINKER__ej12_Debug CMakeFiles/ej12.dir/tests/test
 
 build cmake_object_order_depends_target_ej1: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej1.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej1_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej1
+build CMakeFiles/ej1.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej1_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej1
   DEFINES = -DEJ=1
   DEP_FILE = CMakeFiles\ej1.dir\tests\test_geometria.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -301,7 +301,7 @@ build ej1.exe: CXX_EXECUTABLE_LINKER__ej1_Debug CMakeFiles/ej1.dir/tests/test_ge
 
 build cmake_object_order_depends_target_ej11: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej11.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej11_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej11
+build CMakeFiles/ej11.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej11_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej11
   DEFINES = -DEJ=11
   DEP_FILE = CMakeFiles\ej11.dir\tests\test_recordatorios.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -338,7 +338,7 @@ build ej11.exe: CXX_EXECUTABLE_LINKER__ej11_Debug CMakeFiles/ej11.dir/tests/test
 
 build cmake_object_order_depends_target_ej2: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej2.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej2_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej2
+build CMakeFiles/ej2.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej2_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej2
   DEFINES = -DEJ=2
   DEP_FILE = CMakeFiles\ej2.dir\tests\test_geometria.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -375,7 +375,7 @@ build ej2.exe: CXX_EXECUTABLE_LINKER__ej2_Debug CMakeFiles/ej2.dir/tests/test_ge
 
 build cmake_object_order_depends_target_ej10: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej10.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej10_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej10
+build CMakeFiles/ej10.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej10_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej10
   DEFINES = -DEJ=10
   DEP_FILE = CMakeFiles\ej10.dir\tests\test_recordatorios.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -412,7 +412,7 @@ build ej10.exe: CXX_EXECUTABLE_LINKER__ej10_Debug CMakeFiles/ej10.dir/tests/test
 
 build cmake_object_order_depends_target_ej3: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej3.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej3_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej3
+build CMakeFiles/ej3.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej3_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej3
   DEFINES = -DEJ=3
   DEP_FILE = CMakeFiles\ej3.dir\tests\test_geometria.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -449,7 +449,7 @@ build ej3.exe: CXX_EXECUTABLE_LINKER__ej3_Debug CMakeFiles/ej3.dir/tests/test_ge
 
 build cmake_object_order_depends_target_ej5: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej5.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej5_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej5
+build CMakeFiles/ej5.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej5_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej5
   DEFINES = -DEJ=5
   DEP_FILE = CMakeFiles\ej5.dir\tests\test_geometria.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -486,7 +486,7 @@ build ej5.exe: CXX_EXECUTABLE_LINKER__ej5_Debug CMakeFiles/ej5.dir/tests/test_ge
 
 build cmake_object_order_depends_target_ej15: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej15.dir/tests/test_juego.cpp.obj: CXX_COMPILER__ej15_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_juego.cpp || cmake_object_order_depends_target_ej15
+build CMakeFiles/ej15.dir/tests/test_juego.cpp.obj: CXX_COMPILER__ej15_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_juego.cpp || cmake_object_order_depends_target_ej15
   DEP_FILE = CMakeFiles\ej15.dir\tests\test_juego.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
   OBJECT_DIR = CMakeFiles\ej15.dir
@@ -522,7 +522,7 @@ build ej15.exe: CXX_EXECUTABLE_LINKER__ej15_Debug CMakeFiles/ej15.dir/tests/test
 
 build cmake_object_order_depends_target_ej6: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej6.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej6_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej6
+build CMakeFiles/ej6.dir/tests/test_geometria.cpp.obj: CXX_COMPILER__ej6_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_geometria.cpp || cmake_object_order_depends_target_ej6
   DEFINES = -DEJ=6
   DEP_FILE = CMakeFiles\ej6.dir\tests\test_geometria.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -559,7 +559,7 @@ build ej6.exe: CXX_EXECUTABLE_LINKER__ej6_Debug CMakeFiles/ej6.dir/tests/test_ge
 
 build cmake_object_order_depends_target_ej14: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej14.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej14_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej14
+build CMakeFiles/ej14.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej14_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej14
   DEFINES = -DEJ=14
   DEP_FILE = CMakeFiles\ej14.dir\tests\test_recordatorios.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -596,7 +596,7 @@ build ej14.exe: CXX_EXECUTABLE_LINKER__ej14_Debug CMakeFiles/ej14.dir/tests/test
 
 build cmake_object_order_depends_target_ej7: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej7.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej7_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej7
+build CMakeFiles/ej7.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej7_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej7
   DEFINES = -DEJ=7
   DEP_FILE = CMakeFiles\ej7.dir\tests\test_recordatorios.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -633,7 +633,7 @@ build ej7.exe: CXX_EXECUTABLE_LINKER__ej7_Debug CMakeFiles/ej7.dir/tests/test_re
 
 build cmake_object_order_depends_target_ej9: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej9.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej9_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej9
+build CMakeFiles/ej9.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej9_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej9
   DEFINES = -DEJ=9
   DEP_FILE = CMakeFiles\ej9.dir\tests\test_recordatorios.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -670,7 +670,7 @@ build ej9.exe: CXX_EXECUTABLE_LINKER__ej9_Debug CMakeFiles/ej9.dir/tests/test_re
 
 build cmake_object_order_depends_target_ej13: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/ej13.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej13_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej13
+build CMakeFiles/ej13.dir/tests/test_recordatorios.cpp.obj: CXX_COMPILER__ej13_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_recordatorios.cpp || cmake_object_order_depends_target_ej13
   DEFINES = -DEJ=13
   DEP_FILE = CMakeFiles\ej13.dir\tests\test_recordatorios.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
@@ -707,7 +707,7 @@ build ej13.exe: CXX_EXECUTABLE_LINKER__ej13_Debug CMakeFiles/ej13.dir/tests/test
 
 build cmake_object_order_depends_target_truco: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
-build CMakeFiles/truco.dir/tests/test_truco.cpp.obj: CXX_COMPILER__truco_Debug D$:/Onedrive/OneDrive$ -$ gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_truco.cpp || cmake_object_order_depends_target_truco
+build CMakeFiles/truco.dir/tests/test_truco.cpp.obj: CXX_COMPILER__truco_Debug D$:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/tests/test_truco.cpp || cmake_object_order_depends_target_truco
   DEP_FILE = CMakeFiles\truco.dir\tests\test_truco.cpp.obj.d
   FLAGS = -pthread -std=gnu++11 -ggdb3 -g -g -std=gnu++11
   OBJECT_DIR = CMakeFiles\truco.dir
@@ -739,7 +739,7 @@ build truco.exe: CXX_EXECUTABLE_LINKER__truco_Debug CMakeFiles/truco.dir/tests/t
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D "D:\Onedrive\OneDrive - gl.fcen.uba.ar\Documentos\02_Materias_Cursos\04_Computacion\11_Algoritmos_y_Estructuras_de_Datos_2\Laboratorio\labos\02-ejercitacion_definicion_clases\cmake-build-debug" && C:\Users\Eduardo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.7172.20\bin\cmake\win\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D D:\Users\Eduardo\Documents\repos\algoritmos-2\Laboratorio\labos\02-ejercitacion_definicion_clases\cmake-build-debug && C:\Users\Eduardo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.7172.20\bin\cmake\win\bin\cmake.exe -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -750,7 +750,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D "D:\Onedrive\OneDrive - gl.fcen.uba.ar\Documentos\02_Materias_Cursos\04_Computacion\11_Algoritmos_y_Estructuras_de_Datos_2\Laboratorio\labos\02-ejercitacion_definicion_clases\cmake-build-debug" && C:\Users\Eduardo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.7172.20\bin\cmake\win\bin\cmake.exe --regenerate-during-build -S"D:\Onedrive\OneDrive - gl.fcen.uba.ar\Documentos\02_Materias_Cursos\04_Computacion\11_Algoritmos_y_Estructuras_de_Datos_2\Laboratorio\labos\02-ejercitacion_definicion_clases" -B"D:\Onedrive\OneDrive - gl.fcen.uba.ar\Documentos\02_Materias_Cursos\04_Computacion\11_Algoritmos_y_Estructuras_de_Datos_2\Laboratorio\labos\02-ejercitacion_definicion_clases\cmake-build-debug""
+  COMMAND = cmd.exe /C "cd /D D:\Users\Eduardo\Documents\repos\algoritmos-2\Laboratorio\labos\02-ejercitacion_definicion_clases\cmake-build-debug && C:\Users\Eduardo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.7172.20\bin\cmake\win\bin\cmake.exe --regenerate-during-build -SD:\Users\Eduardo\Documents\repos\algoritmos-2\Laboratorio\labos\02-ejercitacion_definicion_clases -BD:\Users\Eduardo\Documents\repos\algoritmos-2\Laboratorio\labos\02-ejercitacion_definicion_clases\cmake-build-debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -804,7 +804,7 @@ build truco: phony truco.exe
 # =============================================================================
 
 #############################################
-# Folder: D:/Onedrive/OneDrive - gl.fcen.uba.ar/Documentos/02_Materias_Cursos/04_Computacion/11_Algoritmos_y_Estructuras_de_Datos_2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug
+# Folder: D:/Users/Eduardo/Documents/repos/algoritmos-2/Laboratorio/labos/02-ejercitacion_definicion_clases/cmake-build-debug
 
 build all: phony ej4.exe libreta.exe libgtest.a ej8.exe libgtest_main.a ej12.exe ej1.exe ej11.exe ej2.exe ej10.exe ej3.exe ej5.exe ej15.exe ej6.exe ej14.exe ej7.exe ej9.exe ej13.exe truco.exe
 

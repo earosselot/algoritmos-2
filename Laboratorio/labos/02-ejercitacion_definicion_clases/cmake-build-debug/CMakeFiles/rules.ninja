@@ -384,7 +384,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\Users\Eduardo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.7172.20\bin\cmake\win\bin\cmake.exe --regenerate-during-build -S"D:\Onedrive\OneDrive - gl.fcen.uba.ar\Documentos\02_Materias_Cursos\04_Computacion\11_Algoritmos_y_Estructuras_de_Datos_2\Laboratorio\labos\02-ejercitacion_definicion_clases" -B"D:\Onedrive\OneDrive - gl.fcen.uba.ar\Documentos\02_Materias_Cursos\04_Computacion\11_Algoritmos_y_Estructuras_de_Datos_2\Laboratorio\labos\02-ejercitacion_definicion_clases\cmake-build-debug"
+  command = C:\Users\Eduardo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.7172.20\bin\cmake\win\bin\cmake.exe --regenerate-during-build -SD:\Users\Eduardo\Documents\repos\algoritmos-2\Laboratorio\labos\02-ejercitacion_definicion_clases -BD:\Users\Eduardo\Documents\repos\algoritmos-2\Laboratorio\labos\02-ejercitacion_definicion_clases\cmake-build-debug
   description = Re-running CMake...
   generator = 1
 
