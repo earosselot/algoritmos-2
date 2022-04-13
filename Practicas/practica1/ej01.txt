@@ -1,0 +1,4 @@
+ejercicio1.
+
+f) 
+buscar: secu(alpha) x secu(alpha) -> 
