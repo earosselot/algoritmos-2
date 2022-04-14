@@ -1,4 +1,14 @@
 ejercicio1.
 
+e) 
+
+esPrefijo?: secu(alpha) x secu(alpha) -> bool
+
+esPrefijo?(<>, t) = true
+esPrefijo?(e x s, t) = IF e != prim(s) THEN false ELSE esPrefijo?(s, fin(t)) FI
+                        = IF e == prim(s) THEN true ELSE esPrefijo?(s, fin(t))
+
 f) 
-buscar: secu(alpha) x secu(alpha) -> 
+buscar: secu(alpha) x secu(alpha) -> nat
+
+buscar(<>, s) == 
