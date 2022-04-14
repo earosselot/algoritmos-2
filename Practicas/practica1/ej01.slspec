@@ -1,0 +1,137 @@
+ejercicio1.
+
+tad secuencia(α)
+
+observadores:
+    vacia?: secu(α) ➝ bool
+    prim: secu(α) s ➝ α                    {¬ vacia?(s)}
+    // devuelve el primer elemento
+    fin: secu(α) s ➝ secu(α)
+    // devuelve la secu sin el primer elemento
+
+generadores:
+    <>: ➝ secu(α)
+    • • •: α × secu(α) ➝ secu(α)
+    // devuelve la secu con el α en la primera posicion
+
+otras operaciones:
+    • ○ •: secu(α) × α ➝ secu(α)
+    // devuelve la secu con el α en la ultima posicion
+    • & •: secu(α) × secu(α) ➝ secu(α)
+    // concatena dos secu
+    ult: secu(α) s ➝ α                     {¬ vacia?(s)}
+    // devuelve el ultimo elemento
+    com: secu(α) s ➝ secu(α)               {¬ vacia?(s)}
+    // devuelve la secu sin el ultimo elemento
+    long: secu(α) ➝ nat
+    // largo de la secuencia
+    esta?: α × secu(α) ➝ bool
+    // si esta α o no
+
+fin tad
+
+∀ s, t: secu(α), ∀ e, k: α
+
+a)  duplicar: secu(α) ➝ secu(α)
+
+    duplicar(<>) ≡ <>
+    duplicar(e • s) ≡ e • (e • duplicar(s))
+
+b)  • ≤ •: secu(α) × secu(α) ➝ bool
+
+    <> ≤ t    ≡ true
+    e • s ≤ t ≡
+        IF e < prim(t) THEN
+            true
+        ELSE 
+            IF e = prim(t) THEN
+                s ≤ fin(t)
+            ELSE
+                false
+            FI
+        FI
+    
+c)  reverso: secu(α) ➝ secu(α)
+
+    reverso(<>) ≡ <>
+    reverso(e • s) ≡ (reverso(s)) ○ e
+
+d)  capicua: secu(α) ➝ bool                       TODO:
+
+    capicua(<>) ≡ true
+    capicua(e • s) ≡ (e • s) = reverso(e • s)
+    // TODO: este esta bien asi o hay que ponerle un "obs" al igual.
+    // hace falta poner e • s? o con s solo ya va bien?
+
+e)  esPrefijo?: secu(α) x secu(α) -> bool
+
+    esPrefijo?(<>, t) = true
+    esPrefijo?(e • s, t) = IF e != prim(s) THEN false ELSE esPrefijo?(s, fin(t)) FI
+                        = IF e == prim(s) THEN true ELSE esPrefijo?(s, fin(t)) fi
+
+f)  buscar: secu(α) x secu(α) ➝ nat
+
+    buscar(<>, t) ≡ 0
+    buscar(e • s, t) ≡ 
+        IF (secuEsta(e • s, t)) THEN
+            IF esPrefijo?(e • s, t) THEN
+                0      
+            ELSE
+                1 + buscar(s, t)
+            FI
+        ELSE
+            ⊥
+        FI
+
+    secuEsta?(s, t) ≡ IF esPrefijo?(s, t) THEN true ELSE secuEsta?(s, fin(t))
+    ≡ esPrefijo?(s,t) ∨ secuEsta?(s, fin(t))
+
+g)  estaOrdenada?: secu(α) ➝ bool
+
+    estaOrdenada(<>) ≡ true
+    estaOrdenada(e • s) ≡ e < prim(s) ∧ estaOrdenada(s)
+
+h)  insertarOrdenada: secu(α) so × α ➝ secu(α)                 {estaOrdenada?(so)}
+
+    insertarOrdenada(<>, e) ≡ e • <>
+    insertarOrdenada(k • s, e) ≡
+        IF e ≤ k THEN
+            e • (k • s)
+        ELSE
+            k • insertarOrdenada(s, e)
+        FI
+
+i)  cantidadApariciones: secu(α) × α ➝ nat
+
+    cantidadApariciones(<>, e) ≡ 0
+    cantidadApariciones(e • s, k) ≡
+        IF e = k THEN
+            1 + cantidadApariciones(s, k)
+        ELSE
+            cantidadApariciones(s, k)
+        FI
+
+j)  esPermutacion?: secu(α) × secu(α) ➝ bool      TODO: 
+
+    esPermutacion?(<>, t) ≡ false
+    esPermutacion?(e • s, t) ≡ 
+        IF cantidadApariciones(e • s, e) = cantidadApariciones(t, e) THEN
+            esPermutacion?(s, t)
+        ELSE
+            false
+        FI
+    // TODO: no se como terminar este...
+    // tengo que hacer un auxiliar para sacar e de t?
+
+k) combinar: secu(α) so₁ × secu(α) so₂ ➝ secu(α)       {estaOrdenada?(so₁) ∧ estaOrdenada?(so₂)}
+
+    combinar(<>, t) ≡ t
+    combinar(t, <>) ≡ t
+    combinar(e • s, t) ≡ 
+        IF e ≤ prim(t) THEN
+            e • combinar(s, t)
+        ELSE
+            prim(t) • combinar(e • s, fin(t))
+        FI
+
+    
