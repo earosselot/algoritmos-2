@@ -1,0 +1,35 @@
+TAD ARBOL_TERNARIO(α)
+
+generos:    at(α)
+
+generadores:
+    nil :                           ➝ at(α)
+    tern: at(α) × at(α) × at(α) × α ➝ at(α)
+
+observadores:
+    nil?: at(α)   ➝ bool
+    raiz: at(α) a ➝ α              {¬nil?(a)}
+    izq : at(α) a ➝ at(α)          {¬nil?(a)}
+    med : at(α) a ➝ at(α)          {¬nil?(a)}
+    der : at(α) a ➝ at(α)          {¬nil?(a)}
+
+Fin TAD
+
+    ∀ i, m, d: at(α), ∀ r: α, ∀ k: nat
+a)  nivelNormal?: at(α) × nat ➝ bool
+
+    nivelNormal?(nil, k) ≡ false
+    nivelNormal?(tern(i, m, d, r), k) ≡
+        IF k = 0 THEN
+            (¬nil(i) ∧ ¬nil(m) ∧ ¬nil(d))
+        ELSE
+            nivelNormal(i, k-1) ∧ nivelNormal(m, k-1) y nivelNormal(d, k-1)
+        FI
+
+b)  Acotado?: at(α) × nat ➝ bool
+
+    Acotado?(nil, k) ≡ true
+    Acotado?(tern(i, m, d, r), k) ≡ 
+        Acotado?(i, k)
+        Acotado?(m, k)
+        Acotado?(d, k)

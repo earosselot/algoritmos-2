@@ -1,0 +1,104 @@
+TAD ARBOL_BINARIO(α)
+
+observadores:
+    // vacio
+    nil?: ab(α)   ➝ bool
+    raiz: ab(α) a ➝ α                            {¬nil?(a)}
+    izq : ab(α) a ➝ ab(α)                        {¬nil?(a)}
+    der : ab(α) a ➝ ab(α)                        {¬nil?(a)}
+
+generadores:
+    nil :                   ➝ ab(α)
+    bin : ab(α) × α × ab(α) ➝ ab(α)
+
+otras operaciones:
+    // maxima distancia entre la raiz y un nodo
+    altura:    ab(α) ➝ nat
+    // cantidad de nodos del arbol
+    tamano:    ab(α) ➝ nat
+    // devuelve una secuencia del arbol ordenada segun i, r, d
+    inorder:   ab(α) ➝ secu(α)
+    // devuelve una secuencia del arbol ordenada segun r, i, d
+    preorder:  ab(α) ➝ secu(α)
+    // devuelve una secuencia del arbol ordenada segun i, d, r
+    postorder: ab(α) ➝ secu(α)
+    // ab con ambos hijos nil
+    esHoja?:   ab(α) ➝ bool
+
+     
+          a
+        /   \
+      b₁     b₂
+     / \    / \
+    c₁  c₂ c₃  c₄
+
+    inorder   ≡ inorder(b₁) & (a • inorder(b₂)) 
+              ≡ (inorder(c₁) & (b₁ • inorder(c₂))) & (a • inorder(c₃) & (b₂ • inorder(c₄)))
+              ≡ <c₁, b₁, c₂, a, c₃, b₂, c₄>
+
+    preorder  ≡ <a, b₁, c₁, c₂, b₂, c₃, c₄>
+    postorder ≡ <c₁, c₂, b₁, c₃, c₄, b₂, a>
+
+    ∀ i, d: ab(α), ∀ r: α
+a)  esHoja?: ab(α) ➝ bool
+
+    esHoja?(nil) ≡ false
+    esHoja?(bin(i, r, d)) ≡ nil?(i) & nil?(d)
+
+b)  #Hojas: ab(α) ➝ nat
+    
+    #Hojas(nil) ≡ 0
+    #Hojas(bin(i, r, d)) ≡ IF esHoja?(bin(i, r, d)) THEN 1 ELSE 0 FI
+                            + #Hojas(i) + #Hojas(d)
+    
+c)  DegeneradoAIzquierda: ab(α) ➝ bool
+
+    DegeneradoAIzquierda(nil) ≡ true
+    DegeneradoAIzquierda(bin(i, r, d)) ≡ 
+        IF (esHoja?(bin(i, r, d))) THEN
+            true
+        ELSE
+            nil?(d) ∧ DegeneradoAIzquierda(i)
+        FI
+        // version con or y and
+        ≡ (esHoja?(bin(i, r, d))) ∨ (nil?(d) ∧ DegeneradoAIzquierda(i))
+
+d)  ZigZag: ab(α) ➝ bool   // TODO:
+
+    ZigZag(bin(i, r, d)) ≡ 
+        IF (esHoja?(bin(i, r, d))) THEN
+            true
+        ELSE
+            IF (¬nil?(d) ∧ ¬nil?(i)) THEN
+                false
+            ELSE 
+                ZigZag(d)
+            FI
+        FI
+
+        // TODO: completar este
+
+    DegeneradoADerecha(bin(i, r, d)) ≡ 
+        (esHoja?(bin(i, r, d))) ∨ (nil?(i) ∧ DegeneradoADerecha(d))
+
+e)  UltimoNivelCompleto: ab(α) ➝ nat TODO:
+
+    UltimoNivelCompleto(<>) ≡ 0
+    UltimoNivelCompleto(bin(i, r, d)) ≡ 
+        IF esHoja?(bin(i, r, d)) THEN 1 ELSE
+            1 + min(UltimoNivelCompleto(i), UltimoNivelCompleto(d)) FI
+        ≡ 1 + min(UltimoNivelCompleto(i), UltimoNivelCompleto(d))
+
+    // TODO: la primera la hice yo, la segunda esta en un video de la practica.
+    // las dos "funcionan", pero la primera es incorrecta ?
+
+f)  espejo: ab(α)➝ ab(α)
+
+    espejo(nil) ≡ nil
+    espejo(bin(i, r, d)) ≡ bin(espejo(d), r, espejo(i))
+
+g)  esSimetrico?: ab(α) ➝ bool
+
+    esSimetrico?(nil) ≡ true
+    esSimetrico?(bin(i, r, d)) ≡ bin(i, r, d) =obs espejo(bin(i, r, d))
+    // TODO: habia otra manera de resolver este ?

@@ -1,6 +1,4 @@
-ejercicio1.
-
-tad secuencia(α)
+TAD SECUENCIA(α)
 
 observadores:
     vacia?: secu(α) ➝ bool
@@ -105,25 +103,28 @@ i)  cantidadApariciones: secu(α) × α ➝ nat
 
     cantidadApariciones(<>, e) ≡ 0
     cantidadApariciones(e • s, k) ≡
-        IF e = k THEN
-            1 + cantidadApariciones(s, k)
-        ELSE
-            cantidadApariciones(s, k)
-        FI
+        IF e = k THEN 1 ELSE 0 FI 
+        + cantidadApariciones(s, k)
 
 j)  esPermutacion?: secu(α) × secu(α) ➝ bool      TODO: 
 
-    esPermutacion?(<>, t) ≡ false
+    esPermutacion?(<>, t)    ≡ false
+    esPermutacion?(<>, <>)   ≡ true
     esPermutacion?(e • s, t) ≡ 
         IF cantidadApariciones(e • s, e) = cantidadApariciones(t, e) THEN
-            esPermutacion?(s, t)
+            esPermutacion?(s, sacar(t, e))
         ELSE
             false
         FI
-    // TODO: no se como terminar este...
-    // tengo que hacer un auxiliar para sacar e de t?
 
-k) combinar: secu(α) so₁ × secu(α) so₂ ➝ secu(α)       {estaOrdenada?(so₁) ∧ estaOrdenada?(so₂)}
+    sacar: secu(α) s × α e ➝ secu(α)
+
+    sacar(<>, k) ≡ <>
+    sacar(e • s, k) ≡ IF e = k THEN s ELSE e • sacar(s, k)
+
+    // TODO: es correcto este ejercicio?
+
+k)  combinar: secu(α) so₁ × secu(α) so₂ ➝ secu(α)       {estaOrdenada?(so₁) ∧ estaOrdenada?(so₂)}
 
     combinar(<>, t) ≡ t
     combinar(t, <>) ≡ t
@@ -133,5 +134,3 @@ k) combinar: secu(α) so₁ × secu(α) so₂ ➝ secu(α)       {estaOrdenada?(
         ELSE
             prim(t) • combinar(e • s, fin(t))
         FI
-
-    
