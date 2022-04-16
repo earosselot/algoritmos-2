@@ -88,10 +88,16 @@ public:
 private:
 
     struct Nodo {
-        // Completar
+        int valor;
+        Nodo* siguiente;
+        Nodo* anterior;
+
+        explicit Nodo(int valor);
     };
 
-    // Completar
+    Nodo* _primerNodo;
+    Nodo* _ultimoNodo;
+    int _longitud;
 };
 
 #include "Lista.hpp"
