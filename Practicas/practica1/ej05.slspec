@@ -30,6 +30,8 @@ b)  Acotado?: at(α) × nat ➝ bool
 
     Acotado?(nil, k) ≡ true
     Acotado?(tern(i, m, d, r), k) ≡ 
+        IF 
+        THEN 
         Acotado?(i, k)
         Acotado?(m, k)
         Acotado?(d, k)
