@@ -41,10 +41,15 @@ TEST(lista_test, test_agregar_varios_elementos_solo_adelante) {
 
 TEST(lista_test, test_agregar_varios_elementos_solo_atras) {
     Lista l;
+    l.mostrar(std::cout);
     l.agregarAtras(42);
+    l.mostrar(std::cout);
     l.agregarAtras(43);
+    l.mostrar(std::cout);
     l.agregarAtras(44);
+    l.mostrar(std::cout);
     l.agregarAtras(45);
+    l.mostrar(std::cout);
     ASSERT_EQ(l.longitud(), 4);
     ASSERT_EQ(l.iesimo(0), 42);
     ASSERT_EQ(l.iesimo(1), 43);

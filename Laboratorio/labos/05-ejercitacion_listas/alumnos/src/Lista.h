@@ -98,6 +98,7 @@ private:
     Nodo* _primerNodo;
     Nodo* _ultimoNodo;
     int _longitud;
+    void freeNodo(Nodo* nodo);
 };
 
 #include "Lista.hpp"

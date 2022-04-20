@@ -10,11 +10,25 @@ Lista::Lista(const Lista& l) : Lista() {
 Lista::Nodo::Nodo(int v): valor(v), siguiente(nullptr), anterior(nullptr) {}
 
 Lista::~Lista() {
-    // todo: falta hacer que este metodo ande :_)
-//    if(this->_primerNodo != nullptr) delete this->_primerNodo;
-//    if(this->_ultimoNodo != nullptr)  delete this->_ultimoNodo;
-    for (Nodo* nodo = this->_primerNodo; nodo != nullptr; nodo = nodo->siguiente) {
+
+    if (this->_longitud == 1) {
+        delete this->_primerNodo;
+        delete this->_ultimoNodo;
+    } else if (this->_longitud > 1) {
+        Nodo* nodo = this->_primerNodo;
+        Nodo* siguienteNodo = nodo->siguiente;
         delete nodo->siguiente;
+        nodo = siguienteNodo;
+        for (int i = 1; i < this->longitud() - 2; i++) {
+            siguienteNodo = nodo->siguiente;
+            delete nodo->anterior;
+            delete nodo->siguiente;
+            nodo = siguienteNodo;
+        }
+        delete nodo->anterior;
+
+        delete this->_ultimoNodo;
+        delete this->_primerNodo;
     }
 }
 
@@ -64,14 +78,19 @@ void Lista::eliminar(Nat i) {
     if (i >= this->longitud()) return;
 
     if (this->longitud() == 1) {        // lista con 1 solo nodo
-        this->_primerNodo = nullptr;
-        this->_ultimoNodo = nullptr;
+        delete this->_primerNodo;
+//        this->_primerNodo = nullptr;
+//        this->_ultimoNodo = nullptr;
     } else if (i == 0) {                // eliminar el primero
+        Nodo* primerNodoViejo = this->_primerNodo;
         this->_primerNodo = this->_primerNodo->siguiente;
         this->_primerNodo->anterior = nullptr;
+        delete primerNodoViejo;
     } else if (i == this->longitud() - 1) {     // eliminar el ultimo
+        Nodo* ultimoNodoViejo = this->_ultimoNodo;
         this->_ultimoNodo = this->_ultimoNodo->anterior;
         this->_ultimoNodo->siguiente = nullptr;
+        delete ultimoNodoViejo;
     } else {                            // eliminar uno intermedio
         Nodo* nodoEliminar = this->_primerNodo;
         while (i > 0) {
@@ -79,7 +98,8 @@ void Lista::eliminar(Nat i) {
             i--;
         }
         nodoEliminar->anterior->siguiente = nodoEliminar->siguiente;
-        nodoEliminar->siguiente->anterior = nodoEliminar-> anterior;
+        nodoEliminar->siguiente->anterior = nodoEliminar->anterior;
+        delete nodoEliminar;
     }
     this->_longitud--;
 }
@@ -109,5 +129,15 @@ int& Lista::iesimo(Nat i) {
 }
 
 void Lista::mostrar(ostream& o) {
-    // Completar
+    o << "[";
+    for (Nodo* nodo = this->_primerNodo; nodo != nullptr; nodo = nodo->siguiente) {
+        o << nodo->valor << ", ";
+    }
+    o << "]" << endl;
+}
+
+void Lista::freeNodo(Lista::Nodo *nodo) {
+    if (nodo != nullptr) {
+        delete nodo;
+    }
 }

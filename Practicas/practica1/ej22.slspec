@@ -1,0 +1,53 @@
+Insoportables
+
+TAD FAMOSO es String
+
+TAD INSOPORTABLES(Extracto)
+
+generos: ins
+
+igualdad observacional:  // TODO: aca me quede, pensando la igualdad obs
+    (∀ i, i': ins)
+        (i = obs i') ⟺ 
+            ( (famosos(i) =obs famosos(i')) ∧  
+            (∀ f: famoso)(f ∈ famosos(i) ⟹L enemigos(f, i) = enemigos(f, i')) )
+
+observadores basicos:
+    famosos: ins ➝ conj(famoso)
+    enemigos: famoso f × ins i ➝ conj(famoso)     {f ∈ famosos(i)}
+
+generadores:
+    crearIns: ➝ ins
+    nuevoFamoso: famoso f × ins i ➝ ins            {f ¬∈ famosos(i)}
+    pelear: famoso f × famoso f' × ins i ➝ ins    
+            {{f, f'} C famosos(i) ∧ f ¬∈ enemigos(f', i) ∧ f != f' }
+
+otras operaciones:
+    reconciliar: famoso f × famoso f' × ins i ➝ ins         {{f, f'} C famosos(i) ∧ f = f' ∧ f ∈ enemigos(f', i)}
+
+axiomas:
+    famosos(crearIns) ≡ ∅
+    famosos(nuevoFamoso(f, i)) ≡ Ag(f, famosos(i))
+    famosos(pelear(f, f', i)) ≡ famosos(i)
+    enemigos(f', nuevoFamoso(f, i)) ≡
+        IF f' = f
+            THEN ∅                  // el famoso nuevo no tiene enemigos
+            ELSE enemigos(f', i)
+        FI
+    enemigos(f, pelear(fa, fb, i)) ≡ 
+        IF f ∈ {fa, fb}
+            THEN ({fa, fb} - f)
+            ELSE ∅
+        FI
+        ⋃ enemigos(f, i)
+    reconciliar(f, f', i) ≡ famosos(i) // TODO: ??? tabien???
+    reconciliar(f, f', nuevoFamoso(g, i)) ≡ 
+    reconciliar(f, f', pelear(g, g', i)) ≡ 
+        IF f = g ∧ f' = g' 
+            THEN famosos(i)
+            ELSE 
+        FI
+
+Fin TAD
+
+

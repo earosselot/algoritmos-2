@@ -1,0 +1,119 @@
+Banco
+a)
+TAD persona ES String
+
+TAD FILA(α)
+
+exporta: FILA(α), generadores, observadores, atender, posicion, longuitud
+
+usa: bool, nat, cola
+
+generos: FILA(α)
+
+generadores:
+    abrirVentanilla: ➝ FILA
+    llegar: persona p × FILA f ➝ FILA                          {¬esperando(p, f)}
+
+observadores basicos:
+    vacia: FILA ➝ bool
+    esperando: persona × FILA ➝ bool
+
+    // TODO: atender tiene que ser generador o no? porque en la del peaje 
+    //          cobrar es generador y el comportemiento es similar...
+otras operaciones:
+    atender: FILA f ➝ FILA                                      {¬vacia(f)}
+    posicion: persona p ×  FILA f ➝ nat                         {esperando(p, f)}
+    longuitud: FILA ➝ nat
+
+axiomas: ∀f: FILA, ∀ p, q: persona
+    vacia(abrirVentanilla) ≡ true
+    vacia(llegar(p, f)) ≡ false
+    esperando(p, abrirVentanilla) ≡ false
+    esperando(p, llegar(q, f)) ≡ IF p = q THEN true ELSE esperando(p, llegar(proximo(f), desencolar(f))) FI
+    atender(llegar(p, f)) ≡ desencolar(llegar(p, f)) 
+    posicion(p, llegar(q, f)) ≡ 
+        IF p = proximo(llegar(q, f))
+            THEN 1
+            ELSE 1 + posicion(p, desencolar(llegar(q, f)))
+    longuitud(abrirVentanilla) ≡ 0
+    longuitud(llegar(p, f)) ≡ 1 + longuitud(desencolar(llegar(p, f)))
+
+FIN TAD
+
+b) 
+// cambie la cola por secu para poder meter genete en el medio
+
+TAD persona ES tupla(String, bool)
+
+TAD fila(α)
+
+igualdad observacional:
+    (∀ f, f' : fila) (f =obs f') ⟺ 
+        (vacia(f) = vacia(f') ∧ (∀ p: persona)(esperando(f, p) = esperando(f', p)))
+        // TODO: me parece que vacia(f) = vacia(f') esta de mas, no? Si no va aca, entonces vacia no es obs basico
+
+usa: bool, nat, secu, tupla
+
+generos: fila
+
+observadores basicos:
+    vacia: fila ➝ bool
+    esperando: persona × fila ➝ bool
+
+    // TODO: atender tiene que ser generador o no? porque en la del peaje 
+    //          cobrar es generador y el comportemiento es similar... 
+
+generadores:
+    abrirVentanilla: ➝ fila
+    llegar: persona p × fila f ➝ fila                          {¬esperando(p, f)}
+
+otras operaciones:
+    atender: fila f ➝ fila                                      {¬vacia(f)}
+    posicion: persona p ×  fila f ➝ nat                         {esperando(p, f)}
+    longuitud: fila ➝ nat
+    retirarse: persona p × fila f ➝ fila                        {esperando(p, f)}
+    colarse: persona p × persona q × fila f ➝ fila              {¬esperando(p, f) ∧ esperando(q, f)}
+    seColo?: persona p × fila f ➝ bool                          {esperando(p, f)}
+
+axiomas: ∀f: fila, ∀ p, q: tupla(nat, bool)
+    vacia(abrirVentanilla) ≡ true
+    vacia(llegar(p, f)) ≡ false
+
+    esperando(p, abrirVentanilla) ≡ false
+    esperando(p, llegar(q, f)) ≡ 
+        IF p = q 
+            THEN true 
+            ELSE esperando(p, f) 
+        FI
+
+    atender(fila) ≡ fin(f)
+
+    posicion(p, fila) ≡ 
+        IF p = prim(fila)
+            THEN 1
+            ELSE 1 + posicion(p, fin(fila))
+        FI
+
+    longuitud(fila) ≡ 
+        IF vacia(fila)  
+            THEN 0
+            ELSE 1 + longuitud(fin(fila))
+        FI
+
+    retirarse(p, fila) = 
+        IF p = prim(fila)
+            THEN fin(fila)
+            ELSE prim(fila) • retirarse(p, fin(fila))
+        FI
+    
+    colarse(colado, colante, fila) ≡
+        IF colante = prim(fila)
+            THEN colado • fila
+            ELSE prim(fila) • colarse(colado, colante, fin(fila))
+        FI
+
+    // TODO: no se me ocurre como especificar al colado, con una tupla ? pero despues como la modifico? o como le pongo un default?
+    
+FIN TAD
+
+
