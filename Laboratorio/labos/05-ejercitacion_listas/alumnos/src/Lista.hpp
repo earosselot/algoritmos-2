@@ -10,34 +10,18 @@ Lista::Lista(const Lista& l) : Lista() {
 Lista::Nodo::Nodo(int v): valor(v), siguiente(nullptr), anterior(nullptr) {}
 
 Lista::~Lista() {
-
-    if (this->_longitud == 1) {
-        delete this->_primerNodo;
-        delete this->_ultimoNodo;
-    } else if (this->_longitud > 1) {
-        Nodo* nodo = this->_primerNodo;
-        Nodo* siguienteNodo = nodo->siguiente;
-        delete nodo->siguiente;
-        nodo = siguienteNodo;
-        for (int i = 1; i < this->longitud() - 2; i++) {
-            siguienteNodo = nodo->siguiente;
-            delete nodo->anterior;
-            delete nodo->siguiente;
-            nodo = siguienteNodo;
-        }
-        delete nodo->anterior;
-
-        delete this->_ultimoNodo;
-        delete this->_primerNodo;
-    }
+    limpiarLista();
 }
 
 Lista& Lista::operator=(const Lista& aCopiar) {
+    limpiarLista();
     this->_primerNodo = nullptr;
     this->_ultimoNodo = nullptr;
     this->_longitud = 0;
-    for (Nodo* nodoAC = aCopiar._primerNodo; nodoAC != nullptr; nodoAC = nodoAC->siguiente) {
-        this->agregarAtras(nodoAC->valor);
+    Nodo* nodoCopiar = aCopiar._primerNodo;
+    while (nodoCopiar != nullptr) {
+        this->agregarAtras(nodoCopiar->valor);
+        nodoCopiar = nodoCopiar->siguiente;
     }
     return *this;
 }
@@ -79,8 +63,6 @@ void Lista::eliminar(Nat i) {
 
     if (this->longitud() == 1) {        // lista con 1 solo nodo
         delete this->_primerNodo;
-//        this->_primerNodo = nullptr;
-//        this->_ultimoNodo = nullptr;
     } else if (i == 0) {                // eliminar el primero
         Nodo* primerNodoViejo = this->_primerNodo;
         this->_primerNodo = this->_primerNodo->siguiente;
@@ -131,13 +113,23 @@ int& Lista::iesimo(Nat i) {
 void Lista::mostrar(ostream& o) {
     o << "[";
     for (Nodo* nodo = this->_primerNodo; nodo != nullptr; nodo = nodo->siguiente) {
-        o << nodo->valor << ", ";
+        o << nodo->valor;
+        if (nodo->siguiente != nullptr) {
+            o << ", ";
+        }
     }
     o << "]" << endl;
 }
 
-void Lista::freeNodo(Lista::Nodo *nodo) {
-    if (nodo != nullptr) {
-        delete nodo;
+void Lista::limpiarLista() {
+    if (this->_longitud == 1) {
+        delete this->_primerNodo;
+    } else if (this->_longitud > 1) {
+        Nodo* nodoActual = this->_primerNodo;
+        while (nodoActual != nullptr ) {
+            Nodo* nodoSiguiente = nodoActual->siguiente;
+            delete nodoActual;
+            nodoActual = nodoSiguiente;
+        }
     }
 }

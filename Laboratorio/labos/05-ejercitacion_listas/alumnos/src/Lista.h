@@ -98,7 +98,7 @@ private:
     Nodo* _primerNodo;
     Nodo* _ultimoNodo;
     int _longitud;
-    void freeNodo(Nodo* nodo);
+    void limpiarLista();
 };
 
 #include "Lista.hpp"
