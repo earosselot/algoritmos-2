@@ -1,137 +1,105 @@
 TAD ROSETREE(α)
 
-    generos rt(α)
+    generos rosetree(α)
 
     observadores
-        raiz: rt(α) ➝ α
-        hijos: tr(α) ➝ secu(rt(α))
+        raiz: rosetree(α) ➝ α
+        hijos: rosetree(α) ➝ secu(rosetree(α))
 
     generadores
-        rose: α × secu(rt(α)) ➝ rt(α)
+        rose: α × secu(rosetree(α)) ➝ rosetree(α)
 
-    axiomas ∀s: secu(rt(α)) ∀r: α
+    axiomas ∀s: secu(rosetree(α)) ∀r: α
         raiz(rose(r, s)) ≡ r
-        hijos(rose(r,s)) ≡ s
+        hijos(rose(r, s)) ≡ s
 
 Fin TAD
 
-∀s: secu(rt(α)) ∀r: α
-a)  altura: rt(α) ➝ nat // TODO:
+∀ rt : rosetree(α), ∀ s: secu(rosetree(α)), ∀ r: α
+a)  altura : rosetree(α) ➝ nat 
 
-    altura(rose(r, s)) ≡ alturaMaxSecu(s) + 1
-
-    alturaMaxSecu: secu(rt(α)) ➝ nat
-    alturaMaxSecu(s) ≡ max(altura(prim(s))                   , alturaMaxSecu(fin(s)))
-                     ≡ max(alturaMaxSecu(hijoas(prim(s))) + 1, max(altura(prim(fin(s))), alturaMaxSecu(fin(fin(s)))))
-                        
-    // TODO: esta bien esto ??
-
-b)  #Hojas: rt(α) ➝ nat
-
-    #Hojas(rose(r, s)) ≡
-        IF vacia?(s)
+    altura(rt) ≡
+        IF vacia?(hijos(rt)) 
             THEN 1
-            ELSE #HojasSecu(s)
+            ELSE 1 + maxAlturaSecu(hijos(rt))
         FI
 
-    #HojasSecu: secu(rt(α)) ➝ nat
-    #HojasSecu(<>) ≡ <>
-    #HojasSecu(s) ≡ 
-        IF vacia?(hijos(prim(s)))
-            THEN 1 + #HojasSecu(fin(s))
-            ELSE #Hojas(prim(s)) + #HojasSecu(fin(s))
+    maxAlturaSecu : secu(rosetree(α)) ➝ nat
+
+    maxAlturaSecu(s) ≡ 
+        IF vacia?(s)
+            THEN 0
+            ELSE max(altura(prim(s)), alturaMaxSecu(fin(s)))
+        FI
+
+b)  #Hojas: rosetree(α) ➝ nat
+
+    #Hojas(rt) ≡
+        if vacia?(hijos(rt))
+            THEN 1
+            ELSE #Hojas(prim(hijos(rt))) + #HojasSecu(fin(hijos(rt)))
+        FI
+
+    #HojasSecu : secu(rosetree(α)) ➝ nat
+
+    #HojasSecu(s) ≡
+        IF vacia?(s)
+            THEN 0
+            ELSE #Hojas(prim(s)) + #Hojas(fin(s))
         FI
  
-c)  podar: rt(α) ➝ rt(α)
+c)  podar: rosetree(α) ➝ rosetree(α)   // TODO:
 
-    podar(rose(r, s)) ≡ 
-        IF esHoja?(rose(r, s))
-            THEN nil      //TODO: rosetree vacio ? sera nil ? 
-            ELSE rose(r, podarSecu(s))
+    podar(rt) ≡ 
+        IF esHoja?(rt)
+            THEN // TODO: aca que tengo que devolver???
+            ELSE rose(raiz(rt), podar(prim(hijos(rt))) • podarSecu(fin(hijos(rt))))
         FI
-    
-    podarSecu: secu(rt(α)) ➝ secu(rt(α))
-    podarSecu(<>) ≡ <>
-    podarSecu(s) ≡
-        IF esHoja?(prim(s))
-            THEN podarSecu(fin(s))
+
+    esHoja?(rt) ≡ vacia?(hijos(rt))
+
+    podarSecu : secu(rosetree(α)) -> secu(rosetree(α))
+
+    podarSecu(s) ≡ 
+        IF vacia?(s)
+            THEN <>
             ELSE podar(prim(s)) • podarSecu(fin(s))
         FI
 
-    esHoja?(rose(r, s)) ≡ vacia?(s)
 
-d)  ramasMaximoN: rt(α) × n ➝ secu(secu(α))  // TODO:
-    // TODO: este no me salio ni obtener todas las ramas sin restriccion
-    ramasMaximoN(rose(r, s), n) ≡ 
-        
-    obtenerRamas(rose(r, s)) ≡
-        IF ¬esHoja(rose(r, s))
-            THEN (r • obtenerRamas(prim(s))) • (r • obtenerRamasSecu(r, fin(s)))
-            ELSE r
+d) ramasMaximoN: rosetree(α) × n ➝ secu(secu(α))
+
+    ramasMaximoN(rt, k) ≡
+        IF long(prim(obtenerRamas(rt))) < k
+            THEN prim(obtenerRamas(rt)) • ramasMaximoN(fin(obtenerRamas(rt)))
+            ELSE ramasMaximoN(fin(obtenerRamas(rt)))
         FI
 
-    obtenerRamasSecu: α × secu(rt(α)) ➝ secu(secu(α))
-    obtenerRamasSecu(r, s) ≡
+    obtenerRamas : rosetree(α) ➝ secu(secu(α))
+
+    obtenerRamas(rt) ≡
+        IF esHoja?(rt)
+            THEN < raiz(rt) • <> >
+            ELSE (raiz(rt) • obtenerRamas(prim(hijos(rt)))) 
+                    • (agregarRaizSecu(raiz(rt), obtenerRamasSecu(fin(hijos(rt)))))
+        FI
+
+    obtenerRamasSecu : secu(rosetree(α)) ➝ secu(secu(α))
+
+    obtenerRamasSecu(s) ≡
         IF vacia?(s)
-            THEN <>
-            ELSE (r • obtenerRamas(prim(s)))
-
-            ELSE (r • (raiz(prim(s)) • obtenerRamas(prim(s)))) • obtenerRamasSecu(r, fin(s))
+            THEN < <> >
+            ELSE (obtenerRamas(prim(s)))
+                    • obtenerRamasSecu(fin(s))   
         FI
 
+    agregarRaizSecu : α × secu(secu(α)) ➝ secu(secu(α))
 
-           rtA     rtB          rtC      rtD           rtE
-    rtA = rose(a, rose(b, <>) • rose(c, rose(d, <>) • (rose(e, <>) • <> )))
-
-    obtenerRamas(rtA) 
-    ≡ (a • obtenerRamas(rtB)) • (obtenerRamasSecu(a, fin(hijos(rtA))))
-    ≡ (a • b)                 • (obtenerRamasSecu(a, rtC • <>))
-    ≡ (a • b)                 • (a • (raiz(prim(rtC)) • obtenerRamas(prim(rose(d, <>) • (rose(e, <>) • <> ))))) • obtenerRamasSecu(a, fin(rtC • <>))
-    ≡ (a • b)                 • (a • (c • obtenerRamas(rose(d, <>))))
-    ≡ (a • b)                 • (a • (c • d)) 
-
-
-    OTRA VERSION (creo que esta mas cerca)
-
-    obtenerRamas: rt(α) ➝ secu(secu(α))
-
-    obtenerRamas(rose(r, s)) ≡
-            IF esHoja?(rose(r, s))
-                THEN (r • <>)
-                ELSE obtenerRamasSecu(r, s)
-            FI
-
-
-    obtenerRamasSecu: α × secu(rt(α)) ➝ secu(secu(α))
-
-    obtenerRamasSecu(r, s) ≡
-            IF long(s) = 1 
-                THEN (r • obtenerRamas(prim(s)))
-                ELSE (r • obtenerRamas(prim(s))) • obtenerRamasSecu(r, fin(s))
-            FI
-
-        rtA
-        rtB - rtC
-              rtD - rtE
-
-    rtA     rtB          rtC      rtD           rtE
-    rtA = rose(a, rose(b, <>) • (rose(c, rose(d, <>) • (rose(e, <>) • <> )) • <>))
-
-    oR(rtA)                                                                                                                                                                                                     {esHoja?(rt(α)) -> false}
-    ≡ obtenerRamasSecu(a, rose(b, <>) • (rose(c, rose(d, <>) • (rose(e, <>) • <> )) • <>))                                                                                                                           {long(s) = 1  -> false}
-    ≡ a • obtenerRamas(prim(rose(b, <>) • (rose(c, rose(d, <>) • (rose(e, <>) • <> )) • <>)))  • obtenerRamasSecu(a, fin(rose(b, <>) • (rose(c, rose(d, <>) • (rose(e, <>) • <> )) • <>)))
-    ≡ a • obtenerRamas(rose(b, <>))                                                            • obtenerRamasSecu(a, rose(c, rose(d, <>) • (rose(e, <>) • <> )) • <>)                                                                                                  {esHoja?(rt(α)) -> true}
-    ≡ a • (b • <>)                                                                             • obtenerRamasSecu(a, rose(c, rose(d, <>) • (rose(e, <>) • <> )) • <>)                                                                                                          {long(s) = 1  -> true}
-    ≡ a • (b • <>)                                                                             • a • obtenerRamas(prim(rose(c, rose(d, <>) • (rose(e, <>) • <> )) • <>))
-    ≡ a • (b • <>)                                                                             • a • obtenerRamas(rose(c, rose(d, <>) • (rose(e, <>) • <>)))                                                                                                                   {esHoja?(rt(α)) -> false}
-    ≡ a • (b • <>)                                                                             • a • obtenerRamasSecu(c, rose(d, <>) • (rose(e, <>) • <>))                                                                                                                  {long(s) = 1  -> false}
-    ≡ a • (b • <>)                                                                             • a • r              • obtenerRamas(prim(rose(d, <>) • (rose(e, <>) • <>))) • obtenerRamasSecu(c, fin(rose(d, <>) • (rose(e, <>) • <>)))       
-    ≡ a • (b • <>)                                                                             • a • r              • obtenerRamas(rose(d, <>))                            • obtenerRamasSecu(c, (rose(e, <>) • <>))                                                                                               {esHoja?(rt(α)) -> true}
-    ≡ a • (b • <>)                                                                             • a • (r • (d • <>))                                                        • obtenerRamasSecu(c, (rose(e, <>) • <>))                                                                                                                               {long(s) = 1  -> true}
-    ≡ a • (b • <>)                                                                             • a • (r • (d • <>))                                                        • (c • obtenerRamas(prim(rose(e, <>) • <>)))
-    ≡ a • (b • <>)                                                                             • a • (r • (d • <>))                                                        • (c • obtenerRamas(rose(e, <>)))                                                                                                                                      {esHoja?(rt(α)) -> true}
-    ≡ a • (b • <>)                                                                             • a • (r • (d • <>))                                                        • (c • (e • <>))    
-
+    agregarRaizSecu(r, s) ≡
+        IF vacia?(s)
+            THEN <<>>
+            ELSE (r • prim(s)) • agregarRaizSecu(r, fin(s))
+        FI
 
 e)  enumerarNivelN: rt(α) × nat ➝ sec(α)
 
