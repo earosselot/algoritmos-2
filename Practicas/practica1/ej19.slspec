@@ -1,0 +1,78 @@
+CodigoPostal es nat
+Peso es nat
+Paquete tupla(CodigoPostal, Peso)
+Camion es mconj(Paquete)
+Cartero es nat
+
+TAD OficinaCorreo 
+
+observadores:
+Paquetes: OficinaCorreo ➝ mconj(Paquete)
+#PaquetesRebotados: OficinaCorreo ➝ nat
+carteros: OficinaCorreo ➝ conj(Cartero)
+mochila: OficinaCorreo × Cartero ➝ mconj(Paquete)
+zonaCartero: OficinaCorreo × Cartero ➝ codigoPostal
+
+generadores:
+crearOficina : conj(Cartero) ➝ OficinaCorreo
+llegarCamion: OficinaCorreo × Camion ➝ OficinaCorreo
+iniciarRecorrido: OficinaCorreo o × Cartero c ➝ OficinaCorreo                      {∅?(mochila(o,c)) ∧ tengo paquetes para el cartero}
+terminarRecorrido: OficinaCorreo o × Cartero c × Rebotados mcp ➝ OficinaCorreo    {mochila(o,c) tiene algo ∧  mcp es subconj de mochila}
+
+otras operaciones:
+codigosPostales: oficina ➝ conj(codigoPostal)
+#Paquetes: OficinaCorreo ➝ nat
+
+axiomas:
+Paquetes(crearOficina)       ≡ 0
+Paquetes(llegarCamion(o, c)) ≡ Paquetes(o) ⋃ PaquetesCompatibles(o, c)
+
+PaquetesCompatibles : OficinaCorreo × Camion ➝ mconj(Paquete)
+
+PaquetesCompatibles(o, c) ≡
+    IF ∅?(c) 
+        THEN {}
+        ELSE 
+            IF pi1(dameUno(c)) ∈ codigoPostales(o)
+                THEN { dameUno(c) } 
+                ELSE {}
+            FI
+            ⋃ PaquetesCompatibles(o, sinUno(c))
+    FI
+
+Paquetes(iniciarRecorrido(o, c)) ≡ Paquetes(o) - mochila(iniciarRecorrido(o, c), c) 
+
+Paquetes(terminarRecorrido(o, c, r)) ≡ Paquetes(o) ⋃ r
+
+
+mochila: OficinaCorreo × Cartero ➝ mconj(Paquete)
+mochila(iniciarRecorrido(o, c), c') ≡ 
+    IF c != c'
+        THEN mochila(o, c')
+        ELSE seleccionarPaquetes(o, Paquetes(o), c, 0)  // 0 es el peso inicial
+    FI
+
+seleccionarPaquetes: OficinaCorreo × Paquetes × Cartero × nat ➝ mconj(Paquete)
+seleccionarPaquetes(o, p, c, n) ≡
+    IF pi1(dameUno(p)) = zonaCartero(o, c) ∧ n + pi2(dameUno(p)) <= 25
+        THEN { dameUno(p) } ⋃ seleccionarPaquetes(o, sinUno(p), c, n + pi2(dameUno(p)))
+        ELSE { } ⋃ seleccionarPaquetes(o, sinUno(p), c, n)
+    FI
+
+mochila(terminarRecorrido(o, c, r), c') ≡
+    IF c != c'
+        THEN mochila(o, c')
+        ELSE ∅
+    FI
+
+#PaquetesRebotados(terminarRecorrido(o, c, r)) ≡
+    #PaquetesRebotados(o) + #(r)
+
+carteros(terminarRecorrido(o, c, r)) ≡
+    IF r = mochila(o, c)
+        THEN carteros(o) - c
+        ELSE cartero(o)
+    FI
+
+
+
