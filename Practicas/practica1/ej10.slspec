@@ -17,7 +17,7 @@ generadores:
 observadores basicos:
     vacia: FILA ➝ bool
     esperando: persona × FILA ➝ bool
-
+ 
     // TODO: atender tiene que ser generador o no? porque en la del peaje 
     //          cobrar es generador y el comportemiento es similar...
 otras operaciones:

@@ -1,0 +1,79 @@
+TAD BALDOSA es Nat
+TAD ACCION es Nat
+
+
+TAD TABLERO
+
+generos: tablero
+
+observadores:
+baldosas: tablero ➝ dicc(nat, nat)
+
+generadores:
+crearTablero: nat n ➝ tablero                                    {n > 1}
+agregarAccion: tablero t × baldosa n × accion a ➝ nat            { 0 < baldosa ∧ baldosa < #Baldosas }
+
+otras operaciones:
+#baldosas: tablero ➝ nat
+esLlegada: tablero × baldosa ➝ nat             { baldosa ∈ claves(baldosas) }
+
+axiomas:
+baldosas(crearTablero(n)) ≡ // TODO: ???
+
+baldosas(agregarAccion(t, n, a)) ≡ definir(n, a, baldosas(t))
+
+#baldosas(t) ≡ maximoClaves(baldosas(t)) + 1
+
+maximoClaves: dicc(nat, nat) ➝ nat
+maximoClaves(b) ≡ 
+    IF vacio?(b)
+        THEN 0
+        ELSE max(dameUno(claves(b)), maximoClaves(sinUno(claves(b))))
+    FI
+
+esLLegada(t × b) ≡ b = #baldosas(t) - 1
+    
+
+FIN TAD
+
+TAD Jugador es Nat  (1 || 2)
+
+
+TAD JUEGO
+
+usa: tablero
+
+generos: juego
+
+observadores:
+tablero: juego ➝ dicc(nat, nat)
+turno?: juego × jugador ➝ bool
+casillasJugador: juego × jugador ➝ secu(nat)
+dadosJugador: juego × jugador ➝ secu(nat)
+
+generadores:
+comenzarJuego: tablero ➝ juego
+jugarTurno: juego j × jugador pl ➝ juego        {turno?(j, pl)}
+
+otras operaciones:
+casillaActualJugador: juego × jugador ➝ nat
+
+
+axiomas: ∀ j : Juego, ∀ t: tablero, ∀ pl: Jugador
+
+tablero(comenzarJuego(t)) ≡ t
+tablero(avanzarTurno(j, pl))  ≡ t
+
+turno?(comenzarJuego(t), pl) ≡ pl = 1           // el primero es el jugador 1
+turno?(avanzarTurno(j, pl), pl') ≡ pl != pl'    
+
+
+casillasJugador(comenzarJuego(t), pl) ≡ 0 • <>
+casillasJugador(jugarTurno(j, pl), pl') ≡
+    IF pl = pl' 
+        THEN 
+        ELSE
+    FI 
+
+
+FIN TAD

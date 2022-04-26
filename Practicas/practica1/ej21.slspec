@@ -1,0 +1,119 @@
+TAD Persona ES nat
+
+TAD CCC
+
+observadores:
+nivel:           CCC × Persona   ➝ nat
+descendientes:   CCC × Persona   ➝ conj(Persona)
+
+generadores:
+crearCCC :      conj(Persona)     ➝ CCC
+comenzarCurso : CCC c × Persona p ➝ CCC            {nivel(p) != -1}
+avanzarNivel:   CCC c × persona p ➝ CCC            {p ∈ aprendices(c)}
+desertar:       CCC c × persona p ➝ CCC            {p ∈ aprendices(c) ∨ (p ∈ maestros(c) ∧ #(maestros(c)) > 1)}
+
+otras operaciones:
+maestros:         CCC                                   ➝ conj(Persona)  // estos 3 se deducen del nivel de la persona
+tutores:          CCC                                   ➝ conj(Persona)
+aprendices:       CCC                                   ➝ conj(Persona)
+aprendicesTutor:  CCC c × Persona p                     ➝ conj(Persona)  {p ∈ tutores(c)}
+seleccionarTutor: CCC × Persona                         ➝ Persona
+tutor:            CCC c × conj(Persona) cp × Persona p  ➝ Persona      
+         { p ∈ aprendices(c) ∧ cp estaIncluido tutores(c) }
+
+
+axiomas:
+nivel(crearCCC(ps), p)          ≡ 11
+nivel(comenzarCurso(c, p), p')  ≡ IF p = p' THEN 1 ELSE nivel(p') FI
+nivel(avanzarNivel(c, p), p')   ≡ IF p = p' THEN nivel(p') + 1 ELSE nivel(p') FI
+nivel(desertar(c, p), p')       ≡ IF p = p' THEN -1 ELSE nivel(p') FI
+
+maestros(c) ≡
+    IF nivel(dameUno(c)) = 11
+        THEN { dameUno(c) }
+        ELSE ∅
+    FI 
+    ⋃ maestros(sinUno(c))
+
+tutores(c) ≡ 
+    IF nivel(dameUno(c)) > 1
+        THEN { dameUno(c) }
+        ELSE ∅
+    FI
+    ⋃ tutores(sinUno(c))
+
+aprendices(c) ≡
+    IF nivel(dameUno(c)) >= 1 ∧ nivel(dameUno(c)) < 11
+        THEN { dameUno(c) }
+        ELSE ∅
+    FI
+    ⋃ aprendices(c)
+
+aprendicesTutor(crearCCC(ps), p')        ≡ ∅
+aprendicesTutor(comenzarCurso(c, p), p') ≡
+    IF seleccionarTutor(c, p) = p'
+        THEN Ag(aprendicesTutor(c, p'), p)
+        ELSE aprendicesTutor(c, p')
+    FI
+aprendicesTutor(avanzarNivel(c, p), p')  ≡
+    IF p ∈ aprendicesTutor(c, p') ∧ nivel(p) + 1 = nivel(p')
+        THEN aprendicesTutor(c, p') - p
+        ELSE aprendicesTutor(c, p)
+    FI
+aprendicesTutor(desertar(c, p), p') ≡
+    IF p ∈ aprendicesTutor(c, p') 
+        THEN aprendicesTutor(c, p') - p ⋃ aprendicesTutor(c, p)
+        ELSE
+            IF nivel(p) = 11 ∧ seleccionarMaestro(c) = p'
+                THEN aprendicesTutor(c, p') ⋃ aprendicesTutor(c, p)
+                ELSE aprendicesTutor(c, p')
+            FI
+    FI
+
+seleccionarTutor: CCC × Persona ➝ Persona
+seleccionarTutor(c, p) ≡ dameUno(tutoresNivelMinimo(c, nivel(p)))
+
+tutoresNivelMinimo: conj(Persona) × nat ➝ conj(Persona)
+tutoresNivelMinimo(ps, k) ≡
+    IF dameUno(ps) >= k
+        THEN { dameUno(ps) }
+        ELSE ∅
+    FI
+    ⋃ tutoresNivelMinimo(sinUno(ps), k)
+
+seleccionarMaestro: CCC ➝ Persona
+seleccionarMaestro(c) ≡ dameUno(maestros(c))
+
+
+tutor(c, t, p) ≡
+    IF p ∈ aprendicesTutor(c, dameUno(t)) 
+        THEN dameUno(tutores(c))
+        ELSE tutor(c, sinUno(t), p)
+    FI
+
+descendientes(crearCCC(ps), p)         ≡ ∅
+descendientes(comenzarCurso(c, p), p') ≡ 
+    IF seleccionarTutor(c, p) ∈ descendientes(c, p') ∨ seleccionarTutor(c, p) = p' 
+        THEN Ag(descendientes(c, p'), p)
+        ELSE descendientes(c, p')
+    FI
+descendientes(avanzarNivel(c, p), p')  ≡    
+    IF nivel(p) + 1 < nivel(tutor(p))
+        THEN descendientes(c, p')                         // p no cambia de maestro. Los descendientes no cambian, no importa el caso 
+        ELSE 
+            IF seleccionarTutor(c, p) ∈ descendientes(p') ∨ seleccionarTutor(c, p) = p'  // cambia el maestro pero esta entre los descendientes de p' o es p'
+                THEN descendientes(c, p')
+                ELSE descendientes(c, p') - p             // cambia el maestro y cae en otro arbol de descendencia
+            FI  
+    FI
+descendientes(desertar(c, p), p')      ≡
+    IF p ∈ descendientes(c, p')
+        THEN descendientes(c, p') - p
+        ELSE
+            IF p ∈ maestros(c) ∧ seleccionarMaestro(c) = p'
+                THEN descendientes(c, p') ⋃ descendientes(c, p)
+                ELSE descendientes(c, p')
+            FI
+    FI
+
+FIN TAD
