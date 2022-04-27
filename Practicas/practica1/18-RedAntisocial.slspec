@@ -1,0 +1,26 @@
+TAD RED ANTISOCIAL
+
+    generos: red
+    exporta: red, generadores, observadores
+    usa: bool nat rosetree
+
+    observadores:
+    redCompleta: red ➝ rosetree(persona)
+    estaBaneado: red × persona ➝ bool
+
+    generadores:
+    crearRed: persona ➝ red
+    convocar: red r × persona miembro × persona invitado ➝ red 
+                {miembro esta en la red ∧ invitado no esta, ni esta baneado}
+    enjuiciar: red r × conj(persona) jurado × persona enjuiciado ➝ red 
+                { jurado ⊆ r ∧ #jurado = 3 ∧ enjuiciado pertenece a la red}
+
+    otras operaciones:
+    esMiembro: persona ➝ bool
+    absolver: red r × persona p ➝ red {p esta baneado}
+
+
+Fin TAD
+
+TAD Persona es nat
+    generos persona
