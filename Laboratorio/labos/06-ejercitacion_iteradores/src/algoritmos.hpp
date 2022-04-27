@@ -6,6 +6,7 @@
 #include <vector>
 
 // -------------- Ejercicio 1 -----------------------
+#if EJ < 8
 
 template<class Contenedor>
 typename Contenedor::value_type minimo(const Contenedor& c) {
@@ -17,7 +18,7 @@ typename Contenedor::value_type minimo(const Contenedor& c) {
     }
     return min;
 }
-
+#endif
 // -------------- Ejercicio 2 -----------------------
 
 template<class T>
@@ -93,12 +94,63 @@ bool ordenado(Contenedor& c) {
 
 // -------------- Ejercicio 6 -----------------------
 
+template<class Contenedor>
+std::pair<Contenedor, Contenedor> split(const Contenedor& c, const typename Contenedor::value_type& elem) {
+    std::pair<Contenedor, Contenedor> res;
 
+    for (auto& item: c) {
+        if (item < elem) {
+            res.first.insert(res.first.end(), item);
+        } else {
+            res.second.insert(res.second.end(), item);
+        }
+    }
+    return res;
+}
 
 // -------------- Ejercicio 7 -----------------------
+
+template<class Contenedor>
+void merge(const Contenedor& c1, const Contenedor& c2, Contenedor& res) {
+    auto it1 = c1.begin();
+    auto it2 = c2.begin();
+
+    while (it1 != c1.end() && it2 != c2.end()) {
+        if (*it1 < *it2) {
+            res.insert(res.end(), *it1);
+            ++it1;
+        } else {
+            res.insert(res.end(), *it2);
+            ++it2;
+        }
+    }
+
+    while (it1 != c1.end()) {
+        res.insert(res.end(), *it1);
+        ++it1;
+    }
+
+    while (it2 != c2.end()) {
+        res.insert(res.end(), *it2);
+        ++it2;
+    }
+}
+
 // -------------- Ejercicio 8 -----------------------
 
-
-
+#if EJ >= 8
+template<class Contenedor>
+typename Contenedor::value_type minimo(const Contenedor& c) {
+    auto min = c.begin();
+    auto it = c.begin();
+    while (it != c.end()) {
+        if (*it < *min) {
+            min = it;
+        }
+        ++it;
+    }
+    return *min;
+}
+#endif
 
 #endif //ALGO2_LABO_CLASE5_ALGORITMOS_H
