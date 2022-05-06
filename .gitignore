@@ -4,4 +4,6 @@
 **/cmake-build-debug-coverage/
 **/.vscode/
 **/cmake-build-debug/
+**/cmake-build-debug-docker/
+**/cmake-build-debug-wsl/
 **/.idea/

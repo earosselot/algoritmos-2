@@ -50,10 +50,16 @@
 
 <img src="valgrind.png">
 
-5) En el desplegable de configuraciones ahora aparece Debug-WSL (si no aparece, esperar o reiniciar CLion). Seleccionar Debug-WSL y ya se puede correr con Valgrind.
+- En el desplegable de configuraciones ahora aparece Debug-WSL (si no aparece, esperar o reiniciar CLion). Seleccionar Debug-WSL y ya se puede correr con Valgrind.
 
 <img src="configurations.png">
 
 ### (*) si cerraste la consola alpine.
 - abrir powershell
 - `wsl -d Alpine`
+
+### Si usas git:
+
+agregar a `.gitignore`:
+
+`**/cmake-build-debug-wsl/`
