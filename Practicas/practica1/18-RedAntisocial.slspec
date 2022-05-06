@@ -4,20 +4,50 @@ TAD RED ANTISOCIAL
     exporta: red, generadores, observadores
     usa: bool nat rosetree
 
+    igualdad:
+        (∀r1, r2: red) (redCompleta(r1) =obs redCompleta(r2) ∧
+            (∀p: persona) (estaBaneado(r1, p) = estaBaneado(r2, p)))
+
     observadores:
-    redCompleta: red ➝ rosetree(persona)
-    estaBaneado: red × persona ➝ bool
+        redCompleta: red ➝ rosetree(persona)
+        estaBaneado: red × persona ➝ bool
 
     generadores:
-    crearRed: persona ➝ red
-    convocar: red r × persona miembro × persona invitado ➝ red 
-                {miembro esta en la red ∧ invitado no esta, ni esta baneado}
-    enjuiciar: red r × conj(persona) jurado × persona enjuiciado ➝ red 
-                { jurado ⊆ r ∧ #jurado = 3 ∧ enjuiciado pertenece a la red}
+        crearRed: persona ➝ red
+        convocar: red r × persona miembro × persona invitado ➝ red 
+                    { esMiembro(r, miembro) ∧ ¬esMiembro(r, invitado) ∧ ¬estaBaneado(r, invitado) }
+        enjuiciar: red r × conj(persona) jurado × persona enjuiciado ➝ red 
+                    { (∀p: persona)(p ∈ jurado ⟹ esMiembro(r, p)) 
+                        ∧ #jurado = 3 
+                        ∧ esMiembro(r, enjuiciado) 
+                        ∧ ¬(enjuiciado ∈ jurado) }
 
     otras operaciones:
-    esMiembro: persona ➝ bool
-    absolver: red r × persona p ➝ red {p esta baneado}
+        esMiembro: red × persona ➝ bool
+        absolver: red r × persona p ➝ red {estaBaneado(r, p)}
+        desciende: red r × persona p × persona p' ➝ bool {esMiembro(r, p) ∧ esMiembro(r, p')}
+
+    axiomas: ∀p, m, i: persona, ∀r: red
+        redCompleta(crearRed(p)) ≡ rose(p, <>)
+
+        // redCompleta(convocar(r, m, i)) ≡
+        //     if raiz(redCompleta(r)) = m
+        //         then rose(raiz(redCompleta(r)), i • hijos(redCompleta(r)))
+        //         else 
+        //     fi    
+
+        redCompleta(convocar(r, m, i)) ≡
+            if raiz(redCompleta(r)) = m
+                then rose(raiz(redCompleta(r)), i • hijos(redCompleta(r)))
+                else rose(raiz(redCompleta(r)), convocarSecu(hijos(redCompleta(r)), m, i))
+            fi
+        
+        convocarSecu: secu(rosetree(persona)) × persona × persona ➝ secu(rosetree(persona))
+        convocarSecu(srt, m, i) ≡
+            if raiz(prim(srt)) = m
+                then rose(raiz(prim(srt)), i • hijos(prim(srt))) • fin(srt)
+                else prim(srt) • convocarSecu
+            fi
 
 
 Fin TAD

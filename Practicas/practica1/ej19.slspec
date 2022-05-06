@@ -44,7 +44,6 @@ Paquetes(iniciarRecorrido(o, c)) ≡ Paquetes(o) - mochila(iniciarRecorrido(o, c
 
 Paquetes(terminarRecorrido(o, c, r)) ≡ Paquetes(o) ⋃ r
 
-
 mochila: OficinaCorreo × Cartero ➝ mconj(Paquete)
 mochila(iniciarRecorrido(o, c), c') ≡ 
     IF c != c'
