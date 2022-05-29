@@ -20,17 +20,17 @@ class Conjunto
 
         // Inserta un elemento en el conjunto. Si este ya existe,
         // el conjunto no se modifica.
-        void insertar(const T&);
+        void insertar(const T& clave);
 
         // Decide si un elemento pertenece al conjunto o no.
-        bool pertenece(const T&) const;
+        bool pertenece(const T& clave) const;
 
         // Borra un elemento del conjunto. Si este no existe,
         // el conjunto no se modifica.
-        void remover(const T&);
+        void remover(const T& clave);
 
         // Siguiente elemento al recibido por párametro, en orden.
-        const T& siguiente(const T& elem);
+        const T& siguiente(const T& clave);
 
         // Devuelve el mínimo elemento del conjunto según <.
         const T& minimo() const;
@@ -67,7 +67,27 @@ class Conjunto
 
     void insertarEnSubarbol(const T &clave, Nodo *subArbol);
 
+    void removerSubarbol(const T& clave, Nodo* padre, Nodo* nodo, const string& direccion);
+
     int cardinalSubarbol(Nodo* subArbol) const;
+
+    bool buscarEnSubarbol(Nodo* subArbol, const T& clave) const;
+
+    bool arbolVacio() const;
+
+    bool subArbolVacio(Nodo* subArbol) const;
+
+    bool esHoja(Nodo* subArbol) const;
+
+    void removerEnHijo(const T &clave, Nodo *nodo);
+
+    void removerHoja(Nodo *padre, const Nodo *nodo, const string &direccion) const;
+
+    const T& minimoSubarbol(Nodo* subArbol) const;
+
+    const T& maximoSubarbol(Nodo* subArbol) const;
+
+    void limpiarSubarbol(Nodo *nodo, Nodo *padre, const string &direccion);
 };
 
 

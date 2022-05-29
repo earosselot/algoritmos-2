@@ -1,0 +1,47 @@
+
+
+avanzarTurno: SimCity s × dicc(Pos × Construccion) cs ➝ SimCity
+
+
+
+% agregar que tampoco se puede pisar ninguno de los unidos.
+
+unir : SimCity a × SimCity b ➝ SimCity
+
+(∀p: Pos) (
+// si p es una posicion ocupada por una construccion de a entonces no se puede solapar con
+// los rios de b.
+(p ∈ posCasas(a) ∨ p ∈ posComercios(a) ⟹L pi1(p) no∈ riosHoriz(b) ∧ pi2(p) no∈ riosVert(p)) ∧
+
+// 
+( obtener(p, casas(a)) = nivelMaxConstruccion(a) ∨ obtener(p, comercios(a)) = nivelMaxConstruccion(a) ⟹L
+    ¬def?(p, casas(b)) ∧ ¬def?(p, comercios(b)) )
+
+)
+
+
+% ríos no elimnan construcciones y no se pisan construcciones de nivel máximo
+% enunciado: tampoco deberan solaparse las construcciones de nivel maximo de 
+cualquiera de las partidas con otras construcciones
+
+riosVert: SimCity ➝ conj(Pos)
+
+riosVert ≡ vericales(mapa(s)) U verticalesUnidos(s)
+
+verticalesUnidos: conj(SimCity) ➝ conj(Pos)
+
+verticalesUnidos(cjs) ≡ if unidos(s) = ∅
+                        then ∅
+                        else verticales(mapa(dameUno(claves(unidos)))) ⋃ verticalesUnidos(sinUno(cjs))
+                    fi
+
+nivelMaxConstruccion : SimCity ➝ nat
+
+nivelMaxConstruccion(a) ≡ max(nivelMaxPropias(s), nivelMaxUnidas(s))
+
+nivelMaxPropias: SimCity ➝ nat
+
+nivelMaxPropias(a) ≡ max(nivelMax(casas(a)), nivelMax(comercios(a)))
+
+nivelMax: dicc(pos, Nivel) ➝ nat
+nivelMax(d) ≡ if d = 

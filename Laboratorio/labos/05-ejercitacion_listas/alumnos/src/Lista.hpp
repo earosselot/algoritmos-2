@@ -3,7 +3,8 @@
 Lista::Lista(): _primerNodo(nullptr), _ultimoNodo(nullptr), _longitud(0) {}
 
 Lista::Lista(const Lista& l) : Lista() {
-    //Inicializa una lista vacía y luego utiliza operator= para no duplicar el código de la copia de una lista.
+    // Inicializa una lista vacía y luego utiliza operator= para no duplicar el 
+    // código de la copia de una lista.
     *this = l;
 }
 

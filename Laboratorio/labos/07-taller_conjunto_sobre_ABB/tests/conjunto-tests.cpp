@@ -79,6 +79,13 @@ TEST(conjunto_test, test_maximo) {
     EXPECT_EQ(c.maximo(), 8);
 }
 
+TEST(conjunto_test, test_remover_arbol_de_1_nodo) {
+    Conjunto<int> c;
+    c.insertar(5);
+    c.remover(5);
+    EXPECT_EQ(c.cardinal(), 0);
+}
+
 TEST(conjunto_test, test_remover_caso_un_hijo) {
     Conjunto<int> c;
     c.insertar(5);

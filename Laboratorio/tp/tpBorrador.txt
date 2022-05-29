@@ -1,0 +1,144 @@
+s1.turnos = 6
+
+s1.casas ={
+    1,2: 2,
+    4,5: 6
+}
+
+s1.comercios = {
+    2,2: 1,
+    5,5: 3      // esta es una construccion de nivel maximo ?
+}
+
+comercios(s1) = {
+    2,2: 1,
+    5,5: 6      
+}
+////////////////
+s2.turnos = 10
+
+s2.casas = {
+    1,2: 10,
+    4,5: 7,
+}
+
+s2.comercios ={
+    1,2: 2,
+    5,5: 3
+}
+
+comercios(s2) = {
+    1,2: 2,
+    5,5: 7
+}
+/////////////////////////////
+s2.unir(s1)
+s2.unir(s1) // no se puede porque la casa max de s1(de s2.unidos) se solapa con
+            // la casa nivel max de s1 (agregarlo como comentario en el algoritmo)
+
+s2.unidos = {s1}
+popularidad(unir(s1, s2)) = pop(s1) + 1
+
+s12.casas = {
+    1,2: 10,
+    4,5: 7,
+}
+
+s12.comercios ={
+    1,2: 2,
+    5,5: 8
+}
+
+casas(s2.1) = {
+    4,5: 6
+    1,2: 10,
+}
+
+comercios(s2.1) = {
+    1,2: 2,
+    2,2: 1,
+    5,5: 6
+}
+
+// la pupularidad deberia ser la maxima entre los dos que uno?
+// lo podemos decidir. se tiene que complir que no se rompan otras operaciones.
+
+// preguntar por latex de tads
+
+
+s1.unidos = {s4,s5,s6,s7,s9,s0}
+
+s2.casas = {
+    1,1: 7
+}
+
+s3.casas = {
+    2,2: 3
+}
+
+casas(s2.3) = {
+    1,1: 7,
+    2,2: 3
+}
+
+(s2.unir(s3)).unir(s3)
+s2.unir(s3) 
+
+tampoco deberan solaparse las construcciones de nivel maximo de cualquiera de las partidas con otras construcciones
+    s2.unir(s1)
+
+    casas(s2.1) = {
+        4,5: 6
+        1,2: 10,
+    }
+
+    s2.pasarturno(construcciones)
+    unidos = {
+        s1: 1,
+    }
+
+    casas(s2.1) = {
+        4,5: 7
+        1,2: 11,
+    }
+
+    s2.unir(s3) 
+    unidos = {
+        s1: 1,
+        s3: 0,
+    }
+    
+    casas(s2.1) = {
+        4,5: 7
+        1,2: 11,
+        5,4: 6,
+    }
+
+    s2.pasarturno(const)
+    unidos = {
+        s1: 2,
+        s3: 1,
+    }
+
+    casas(s2.1) = {
+        4,5: 8
+        1,2: 12,
+        5,4: 7,
+    }
+
+    s5.unir(s1)
+
+
+s3.unir(s2)
+s1.unir(s3)
+
+
+dicc(Pos, Construccion)
+argumento = {
+    (1,2): casa
+}
+
+dicc(Pos, Nivel)
+casas = {
+    (1,2): 3,
+}
