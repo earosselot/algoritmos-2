@@ -1,0 +1,31 @@
+iniciar()
+
+agregarCasa(pos)
+
+avanzarTurno(dicc(Pos, Construccion))
+
+unir(sc2)
+
+avanzarTurno(dicc(Pos, Construccion))
+
+unir(sc3)
+
+
+if turnos = 0
+    crearSimcity()
+elif clave alguno de los unidos = 0 
+    lo desunis
+else
+    atrasarUnTurno sacar las construcciones nivel 1 
+        y restarle 1 a los unidos 
+        y restarle 1 a turnos 
+        y restarle unos a las construcciones
+
+Abs(estr) = if estr.turnos = 0 
+                // then iniciar(crear(estr.horizontales, estr.verticales))
+                then iniciar(mapa)
+            else
+                if hayUnidoReciente(estr.unidos)
+                    borrar(estr.unidos, unidoReciente())
+                    then unir(Abs(), unidoReciente())
+                else

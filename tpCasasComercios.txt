@@ -1,0 +1,92 @@
+casas(In sc: simcity) -> res: dicc(Pos, Nivel)
+
+    return calcularConstrucciones(sc).FST
+
+comercios(In sc: simcity) -> res: dicc(Pos, Nivel)
+
+    return calcularConstrucciones(sc).SND
+
+
+calcularConstrucciones(In sc: simcity) -> res: tupla(diccLineal(Pos, Nivel), diccLineal(Pos, Nivel))
+
+    casas <- new diccLineal(Pos, Nivel)
+    casas.copiar(sc.casas)
+    comercios <- new diccLineal(Pos, Nivel)
+    comercios.copiar(sc.comercios)
+
+    it <- crearIt(sc.unidos)
+    while haySiguiente(it) do
+        casasUnidosNivelados <- subirNivel(siguenteSignificado(it), casas(siguienteClave(it)))
+        comerciosUnidosNivelados <- subirNivel(siguenteSignificado(it), comercios(siguienteClave(it)))
+        unirConstrucciones(casas, comercios, casasUnidosNivelados, comerciosUnidosNivelados)
+    endwhile
+
+    return new tupla(casas, comercios)
+
+
+unirConstrucciones(In/out cas: dicc(Pos, Nivel), In/out com: dicc(Pos, Nivel), In casUN: dicc(Pos, Nivel), In comUN: dicc(Pos, Nivel))
+
+    it <- crearIt(casUN)
+    while haySiguiente(it) do
+        if (definido?(casas, siguienteClave(it))) then
+            definir(casas, siguienteClave(it), max(siguenteSignificado(it), significado(casas, siguienteClave(it))))
+        else
+            definir(casas, siguienteClave(it), siguenteSignificado(it))
+        endif
+        avanzar(it)
+    endwhile
+
+    it <- crearIt(comUN)
+    // itero comercios del unido
+    while haySiguiente(it) do
+        // si se pisa con un comercio, agarro el de nivel mas grande
+        if (definido?(comercios, siguienteClave(it))) then
+            definir(comercios, siguienteClave(it), max(siguenteSignificado(it), significado(comercios, siguienteClave(it))))
+        // sino, lo agrego
+        else
+            definir(comercios, siguienteClave(it), siguenteSignificado(it))
+        endif
+        avanzar(it)
+    endwhile
+
+    // en este punto casas y comercios tienen todas las construcciones de ambos simcity, pero pueden haber superposiciones.
+
+    // actualizar niveles comercios con casas
+    it <- crearIt(comercios)
+    while haySiguiente(it) do
+        // me fijo si hay una casa cerca de nivel mayor al comercio
+        if hayCasasMayoresCerca(siguienteClave(it), siguenteSignificado(it), casas) then
+            definir(comercios, siguienteClave(it), maximoNivelCasasCercanas(siguienteClave(it), casas))
+        endif
+
+        ajustarNivel(siguenteSignificado(it), siguienteClave(it), casas)
+    endwhile
+
+    // resolvemos superposiciones
+    it <- crearIt(casas)
+    while haySiguiente(it) do
+        // si hay un comercio en el lugar de la casa y tiene un nivel mayor que la casa borramos la casa
+        if (definido?(comercios, siguienteClave(it))) yLuego siguenteSignificado(it) < significado(comercios, siguienteClave(it)) then
+            borrar(casas, siguienteClave(it))
+        // caso contrario borramos el comercio (si son del mismo nivel nos quedamos con la casa)
+        else
+            borrar(comercios, siguienteClave(it))
+        endif
+        avanzar(it)
+    endwhile
+
+    return;
+
+ajustarNivel(in/out nivel: Nivel, in pos: Pos, in casas: dicc(Pos, Nivel)) 
+
+    it <- crearIt(casas)
+    while haySiguiente(it) do
+        if siguienteClave != pos yLuego estaCerca(siguienteClave(it), pos) then
+            nivel <- max(nivel, siguenteSignificado(it))
+        endif
+        avanzar(it)
+    endwhile
+
+estaCerca(a: Pos, b: Pos) -> res: bool
+    
+    return max(pi1(a), pi1(b)) - min(pi1(a), pi1(b)) + max(pi2(a), pi2(b)) - min(pi2(a), pi2(b)) <= 3

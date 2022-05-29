@@ -1,0 +1,35 @@
+
+
+Ejercicio 6.
+
+itero el arbol hasta la raiz. cada nodo guarda una tupla <distanciaMax, altura>
+despues voy subiendo: aumento la altura y el distanciaMax guardo el maximo entre las distanciasMax de los hijos y sumar las alturas de ambos hijos+2
+
+def maxDist(ab: ArbolBinario):
+    return maxDistAux(ab).FST
+
+def maxDistAux(ab):
+    TuplaIzq = TuplaDer = <0, 0>
+    if esHoja(ab): 
+        return <0, 0>                   // CASO BASE
+    if ab.izq != null:
+        TuplaIzq = maxDistAux(ab.izq)   // DIVIDE
+    if ab.der != null:
+        TuplaDer = maxDistAux(ab.der)   // DIVIDE
+    
+    // aumento las alturas              // CONQUER 
+    TuplaIzq.SND++                      
+    TuplaDer.SND++
+
+    // elijo la altura maxima                   // CONQUER 
+    Altura = max(TuplaDer.SND, TuplaIzq.SND)
+
+    // elijo el camino mas largo                // CONQUER 
+    CaminoMasLargo = max(TuplaIzq.FST, TuplaDer.FST, TuplaDer.SND + TuplaIzq.SND)
+
+    return <CaminoMasLargo, Altura>
+
+Complejidad
+    n = cantidad de nodos
+
+    T(n) =  
