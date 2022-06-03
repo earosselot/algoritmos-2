@@ -45,3 +45,33 @@ nivelMaxPropias(a) ≡ max(nivelMax(casas(a)), nivelMax(comercios(a)))
 
 nivelMax: dicc(pos, Nivel) ➝ nat
 nivelMax(d) ≡ if d = 
+
+
+casasPropias: SimCity ➝ dicc(Pos, Nivel)
+
+casasPropias(avanzarTurno(sc, d)) ≡ aumentarNiveles(agregarNuevasConstrucciones(casasPropias(sc), filtrarConstrucciones(d, "Casas")))
+
+filtrarConstrucciones: dicc(Pos, Construccion) × Construccion ➝ dicc(Pos, Construccion)
+
+filtrarConstrucciones(d, constr) ≡
+    if vacio?(d)
+        then vacio()
+        else 
+            if obtener(dameUno(claves(d)), d) = constr
+                then definir(dameUno(claves(d)), constr)
+                else
+            fi
+    fi
+
+agregarNuevasConstrucciones: dicc(Pos, Nivel) × dicc(Pos, Construccion) × Construccion ➝ dicc(Pos, Nivel)
+agregarNuevasConstrucciones(construcciones, nuevas, constr) ≡
+    if vacio?(nuevas)
+        then vacio
+        else 
+            if obtener(dameUno(claves(d)), d) = constr
+                then definir(dameUno(claves(d)), constr)
+                else
+            fi
+    fi
+
+aumentarNiveles: dicc(Pos, Nivel) ➝ dicc(Pos, Nivel)
