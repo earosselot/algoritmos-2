@@ -1,0 +1,499 @@
+\begin{tad}{\tadNombre{Mapa}}
+\tadIgualdadObservacional{m}{m'}{Mapa}{
+    horizontales($m$) $\igobs$ horizontales($m'$) $\yluego$ \\
+    verticales($m$) $\igobs$ verticales($m'$) 
+}
+
+\tadGeneros{Mapa}
+\tadExporta{crear, horizontales, verticales}
+\tadUsa{CONJUNTO, NAT}
+
+\tadAlinearFunciones{horizontales}{Mapa}
+
+\tadObservadores
+\tadOperacion{horizontales}{Mapa}{conj(Nat)}{}
+\tadOperacion{verticales}{Mapa}{conj(Nat)}{}
+
+\tadAlinearFunciones{crear}{conj(Nat),conj(Nat)}{}
+
+\tadGeneradores
+\tadOperacion{crear}{conj(Nat),conj(Nat)}{Mapa}{}
+
+\tadAxiomas[\paratodo{conj(Nat)}{hs,vs}]
+\tadAlinearAxiomas{horizontales(crear(hs, vs))}
+
+\tadAxioma{horizontales(crear(hs, vs))}{hs}
+\tadAxioma{verticales(crear(hs, vs))}{vs}
+\end{tad}
+
+\begin{tad}{\tadNombre{Pos} es Tupla(Nat, Nat)}
+\end{tad}
+
+\begin{tad}{\tadNombre{Nivel} es Nat}
+\end{tad}
+
+\begin{tad}{\tadNombre{Construccion} es String}
+\end{tad}
+
+\begin{tad}{\tadNombre{Nombre} es String}
+\end{tad}
+
+dameClave(dicc) es reemplazo sintáctico de dameUno(claves(dicc))\\
+
+\begin{tad}{\tadNombre{SimCity}}
+\tadIgualdadObservacional{s}{s'}{SimCity}{
+    mapa($s$) $\igobs$ mapa($s'$) $\yluego$ \\ popularidad(s) $\igobs$ popularidad(s') $\yluego$  \\
+    ($\paratodo{Pos}{p}$)( \\
+    (def?($p$, casas($s$)) $\iff$  def?($p$, casas($s'$))) $\yluego$ \\
+    (obtener(p, casas(s)) $\igobs$ obtener(p, casas(s')))) 
+    $\yluego$
+    ($\paratodo{Pos}{p}$)( \\
+    (def?($p$, comercios($s$)) $\iff$  def?($p$, comercios($s'$))) $\yluego$
+    (obtener(p, comercios(s)) $\igobs$ \\ obtener(p, comercios(s'))))
+    ) 
+}
+
+
+
+\tadGeneros{SimCity}
+\tadExporta{observadores basicos, generadores, turnos, casasPropias, comerciosPropios, unidos}
+\tadUsa{DICCIONARIO, MAPA, NATURAL, CONJUNTO}
+
+\tadAlinearFunciones{popularidad}{SimCity}
+
+\tadObservadores
+\tadOperacion{mapa}{SimCity}{Mapa}{}
+\tadOperacion{casas}{SimCity}{dicc(Pos, Nivel)}{}
+\tadOperacion{comercios}{SimCity}{dicc(Pos, Nivel)}{}
+\tadOperacion{popularidad}{SimCity}{Nat}{}
+
+\tadAlinearFunciones{avanzarTurno}{SimCity/s,dicc(Pos,Construccion)/cs}
+
+\tadGeneradores
+\tadOperacion{iniciar}{Mapa}{SimCity}{}
+\tadOperacion{avanzarTurno}{SimCity/s,dicc(Pos,Construccion)/cs}{SimCity}
+    {$\neg$vacio?(claves($cs$)) $\wedge$
+    claves($cs$) $\cap$ posCasas($s$) = claves($cs$) $\cap$ posComercios($s$) = $\emptyset$ \\
+    $\wedge$ (\paratodo{Pos}{p})( $p$ $\in$ claves($cs$) $\Rightarrow_L$ \\
+    $\pi$_1($p$) $\notin$ riosHoriz($cs$) $\wedge$ $\pi$_2($p$) $\notin$ riosVert($cs$))}
+
+    
+ % agregar que tampoco se puede pisar ninguno de los unidos.
+\tadOperacion{unir}{SimCity/a,SimCity/b}{SimCity}
+    {($\paratodo{Pos}{p}$) \\
+    (
+        % si p es una posicion ocupada por una construccion de a entonces no se puede solapar con los rios de b.
+        ((p $\in$ posCasas($a$) $\vee$ $p$ $\in$ posComercios($a$)) $\Rightarrow_L$ ($\pi$_1($p$) $\notin$ riosHoriz($b$) $\wedge$  $\pi$_2($p$) $\notin$ riosVert($b$))) $\wedge$ \\
+        % lo mismo para las posiciones de b
+        ((p $\in$ posCasas($b$) $\vee$ $p$ $\in$ posComercios($b$)) $\Rightarrow_L$ ($\pi$_1($p$) $\notin$ riosHoriz($a$) $\wedge$  $\pi$_2($p$) $\notin$ riosVert($a$))) $\wedge$ \\
+    ((obtener($p$, casas($a$)) = nivelMaxConstruccion($a$) $\vee$ obtener($p$, comercios($a$)) = nivelMaxConstruccion($a$))
+    $\Rightarrow_L$ \\ 
+    $\neg$ def?($p$, casas($b$)) $\wedge$ $\neg$ def?($p$, comercios($b$))) $\wedge$ \\
+    (obtener($p$, casas($b$)) = nivelMaxConstruccion($b$) $\vee$ obtener($p$, comercios($b$)) = nivelMaxConstruccion($b$)
+    $\Rightarrow_L$ \\
+    $\neg$ def?($p$, casas($a$)) $\wedge$ $\neg$ def?($p$, comercios($a$))))}
+
+% para toda casa (a) si la Pos esta en casas de a  ->  pi1(p) notin horizontales(mapa(b)) y pi2(p) notin verticales(mapa(b))
+% y viceversa 
+% igual para los comercios
+% para toda casas(a) ( si obtener(casas(a), c)) == turnos ->L obtener(casas(b), igual pos) no existe y obtener(comercio(b), igual pos) no existe
+% y viseversa
+% igual para los comercios
+
+
+% ríos no elimnan construcciones y no se pisan construcciones de nivel máximo
+% enunciado: tampoco deberan solaparse las construcciones de nivel maximo de cualquiera de las partidas con otras construcciones
+
+\tadAlinearFunciones{nivelMaxConstruccion}{dicc(Pos, Nivel)}
+
+\tadOtrasOperaciones
+\tadOperacion{turnos}{SimCity}{Nat}{}
+\tadOperacion{nivelMaxConstruccion}{SimCity}{Nat}{}
+\tadOperacion{nivelMax}{dicc(Pos, Nivel)}{Nat}{}
+\tadOperacion{posCasas}{SimCity}{conj(Pos)}{}
+\tadOperacion{posComercios}{SimCity}{conj(Pos)}{}
+\tadOperacion{riosVert}{SimCity}{conj(Pos)}{}
+\tadOperacion{riosHoriz}{SimCity}{conj(Pos)}{}
+
+\tadAlinearFunciones{nivelMaxConstruccion}{Pos/p, dicc(Pos, Nivel)/cs1, dicc(Pos, Nivel)/cs2}
+
+\tadOperacion{unirConstrucciones}{dicc(Pos, Nivel)/d1, dicc(Pos, Nivel)/d2}{dicc(Pos, Nivel)}{claves(d1) $\cap$ claves(d2) = $\emptyset$}
+\tadOperacion{encontrarColisiones}{dicc(Pos, Nivel), conj(Pos)}{dicc(Pos, Nivel)}{}
+\tadOperacion{sinColisiones}{dicc(Pos, Nivel), conj(Pos)}{dicc(Pos, Nivel)}{}
+\tadOperacion{resolverColisiones}{dicc(Pos, Nivel)/d1, dicc(Pos, Nivel)/d2}{dicc(Pos, Nivel)}{claves(d1) = claves(d2)}
+\tadOperacion{casasPisanComercios}{dicc(Pos, Nivel)/d1, dicc(Pos, Nivel)/d2}{dicc(Pos, Nivel)}{claves(d1) = claves(d2)}
+\tadOperacion{comerciosPisanCasas}{dicc(Pos, Nivel)/d1, dicc(Pos, Nivel)/d2}{dicc(Pos, Nivel)}{claves(d1) = claves(d2)}
+\tadOperacion{criterioSeleccion}{Pos/p, dicc(Pos, Nivel)/d1, dicc(Pos, Nivel)/d2}{Nat}{p $\in$ claves(d1) $\wedge$ p $\in$ claves(d2) $\wedge$ claves(d1) = claves(d2)}
+\tadOperacion{ajustarSegunCasas}{dicc(Pos, Nivel), dicc(Pos, Nivel)}{dicc(Pos, Nivel)}{}
+\tadOperacion{casasCercanas}{Pos, dicc(Pos, Nivel)}{dicc(Pos, Nivel)}{}
+\tadOperacion{aumentarNiveles}{dicc(Pos, Nivel)}{dicc(Pos, Nivel)}{}
+\tadOperacion{aumentarNivelesUni}{dicc(SimCity, Turnos)}{dicc(SimCity, Turnos)}{}
+\tadOperacion{casasPropias}{SimCity}{dicc(Pos, Nivel)}{}
+\tadOperacion{comerciosPropios}{SimCity}{dicc(Pos, Nivel)}{}
+\tadOperacion{unidos}{Simcity}{dicc(SimCity, Turno)}{}
+
+\tadOperacion{agregarNuevasConstr}{dicc(Pos, Nivel), dicc(Pos, Construccion), Construccion}{dicc(Pos, Nivel)}{}
+
+\tadAxiomas[\paratodo{simcity}{s, s'}, \paratodo{dicc(Pos, Construccion)}{cs, cs1, cs2, coms, casas}, \paratodo{Construccion}{constr},\\ \paratodo{Mapa}{m},
+\paratodo{Pos}{p, p1, p1}, \paratodo{Conj(Pos)}{ps}
+\paratodo{dicc(Pos, Nivel)}{d, d1, d2}, \\
+\paratodo{dicc(SimCity, Turnos)}{u}]
+
+\tadAxioma{posCasas(s)}{claves(casas(s))}
+\tadAxioma{posComercios(s)}{claves(comercios(s))}
+\tadAxioma{riosVert(s)}{verticales(mapa(s))}
+\tadAxioma{riosHoriz(s)}{horizontales(mapa(s))}
+
+\tadAxioma{mapa(iniciar(m))}{m}
+\tadAlinearAxiomas{mapa(avanzarTurno(sc, d)) \ }
+\tadAxioma{mapa(avanzarTurno(s, cs))}{mapa(s)}
+\tadAxioma{mapa(unir(s, s'))}{crear(horizontales(s) \cup\ $horizontales(s')$, $verticales(s)$\ \cup\ $verticales(s')$)}
+
+\tadAxioma{casas(iniciar(m))}{vacío}
+
+\tadAlinearAxiomas{casas(avanzarTurno(s, def(p, constr, cs)))}
+\tadAxioma{casas(avanzarTurno(s, def(p, constr, cs)))}{if $(cs = vacio)$  \\
+\vspace{0pt} \hspace{0.5cm} then if $(constr = "Comercio") $ then\\
+\vspace{0pt} \hspace{1.5cm}  $aumentarNiveles(casas(s))$ \\
+\vspace{0pt} \hspace{1.5cm} else $ def(pos, 1, aumentarNiveles(casas(s)))$ \\
+\vspace{0pt} \hspace{1.3cm} fi \\
+\vspace{0pt} \hspace{0.5cm} else \\
+\vspace{0pt} \hspace{1.3cm} if  $(constr = "Comercio") $ then \\
+\vspace{0pt} \hspace{1.8cm} $casas(avanzarTurno(s, cs))$  \\
+\vspace{0pt} \hspace{1.8cm} else $ def(p, 1, casas(avanzarTurno(s, cs)))$ \\
+\vspace{0pt} \hspace{1.3cm} fi \\
+fi \\}
+
+\tadAlinearAxiomas{casas(unir(s,s'))}
+\tadAxioma{casas(unir(s,s'))}{ \\
+\tab unirConstrucciones(\\
+\tab\tab unirConstrucciones( \\
+\tab\tab\tab resolverColisiones( \\
+\tab\tab\tab\tab $\text{encontrarColisiones(casas(s), claves(casas(s'))),}$ \\
+\tab\tab\tab\tab $\text{encontrarColisiones(casas(s'), claves(casas(s)))}$ \\
+\tab\tab\tab ), \\
+\tab\tab\tab unirConstrucciones( \\
+\tab\tab\tab\tab $\text{sinColisiones(casas(s), claves(casas(s')$\cup$claves(comercios(s')))),}$ \\
+\tab\tab\tab\tab $\text{sinColisiones(casas(s'), claves(casas(s)$\cup$claves(comercios(s))))}$ \\
+\tab\tab\tab ) \\
+\tab\tab ),\\
+\tab\tab casasPisanComercios(\\
+\tab\tab\tab $\text{encontrarColisiones(casas(s), claves(comercios(s'))),}$ \\
+\tab\tab\tab $\text{encontrarColisiones(comercios(s'), claves(casas(s)))}$ \\
+\tab\tab )\\
+\tab )}
+
+
+\tadAlinearAxiomas{comercios(iniciar(m))}
+\tadAxioma{comercios(iniciar(m))}{vacío}
+
+\tadAlinearAxiomas{comercios(avanzarTurno(s,def(pos,constr,cs)) \ }
+\tadAxioma{comercios(avanzarTurno(s, def(p, constr, cs)))}{ajustarSegunCasas(if $(cs = vacio)$ then \\
+\vspace{0pt} \hspace{0.5cm} if  $(constr = "Casa") $ then \\
+\vspace{0pt} \hspace{1cm} $aumentarNiveles(comercios(s))$ else \\ 
+\vspace{0pt} \hspace{1cm} $ def(p, 1, aumentarNiveles(comercios(s)))$ \\ 
+\vspace{0pt} \hspace{0.5cm} fi \\
+\vspace{0pt} \hspace{2.5cm} else \\
+\vspace{0pt} \hspace{0.5cm} if  $(cons = "Casa") $ then \\
+\vspace{0pt} \hspace{1cm} $comercios(avanzarTurno(s, cs))$ else \\ 
+\vspace{0pt} \hspace{1cm} $ def(p, 1, comercios(avanzarTurno(s,cs)))$ \\ 
+\vspace{0pt} \hspace{0.5cm} fi \\
+fi, casas(avanzarTurno(s, def(p, constr, cs)))) \\}
+
+\tadAlinearAxiomas{comercios(unir(s,s'))}
+\tadAxioma{comercios(unir(s,s'))}{ajustarSegunCasas( \\
+\tab unirConstrucciones(\\
+\tab\tab unirConstrucciones( \\
+\tab\tab\tab resolverColisiones( \\
+\tab\tab\tab\tab $\text{encontrarColisiones(comercios(s), claves(comercios(s'))),}$ \\
+\tab\tab\tab\tab $\text{encontrarColisiones(comercios(s'), claves(comercios(s)))}$ \\
+\tab\tab\tab ), \\
+\tab\tab\tab unirConstrucciones( \\
+\tab\tab\tab\tab $\text{sinColisiones(comercios(s), claves(comercios(s')$\cup$claves(casas(s')))),}$ \\
+\tab\tab\tab\tab $\text{sinColisiones(comercios(s'), claves(comercios(s)$\cup$claves(casas(s))))}$ \\
+\tab\tab\tab ) \\
+\tab\tab ),\\
+\tab\tab comerciosPisanCasas(\\
+\tab\tab\tab $\text{encontrarColisiones(comercios(s), claves(casas(s'))),}$ \\
+\tab\tab\tab $\text{encontrarColisiones(casas(s'), claves(comercios(s)))}$ \\
+\tab\tab )\\
+\tab ),\\
+\tab casas(unir(s,s'))\\
+)\\}
+
+
+\tadAlinearAxiomas{popularidad(avanzarTurno(sc,d))) }
+
+// Decisión: la popularidad esta basada en la cantidad de partidas que se unen a la partida principal (s)
+\tadAxioma{popularidad(iniciar(m))}{0}
+\tadAxioma{popularidad(avanzarTurno(s, cs))}{popularidad(s)}
+\tadAxioma{popularidad(unir(s, s'))}{popularidad(s) + 1}
+
+% RIP estaUnido
+
+// Decisión: los turnos de unir dos partidas será la cantidad de turnos del simcity que más turnos tenga \\ 
+\tab \tab (i.e.: el nivel mas alto de las construcciones)
+\tadAxioma{turnos(s)}{NivelMaxConstruccion(s)}
+\tadAxioma{NivelMaxConstruccion(s)}{max(nivelMax(casas(s)), nivelMax(comercios(s)))}
+\tadAxioma{nivelMax(d)}{\IF vacio?(claves(cs)) 
+                    THEN 0
+                    ELSE max(obtener(dameClave(cs),cs),\\
+                     \tab nivelMax(borrar(dameClave(cs), cs) ))
+                FI}
+
+\tadAxioma{unirConstrucciones(d1, d2)}{
+if vacío?(claves(d1)) then\\
+\tab d2 \\
+else\\
+\tab definir( \\
+\tab\tab dameClave(d1), \\
+\tab\tab obtener(dameClave(d1), d1),\\
+\tab\tab $\text{unirConstrucciones(borrar(dameClave(d1), d1), d2)}$\\
+\tab ) \\
+fi \\
+}
+
+\tadAxioma{resolverColisiones(d1, d2)}{
+if vacío?(claves(d1)) then\\
+\tab vacío\\
+else\\
+\tab definir(\\
+\tab\tab dameClave(d1),\\
+\tab\tab criterioSelección(dameClave(d1), d1, d2),\\
+\tab\tab resolverColisiones(\\
+\tab\tab\tab borrar(dameClave(d1), d1),\\
+\tab\tab\tab borrar(dameClave(d1), d2)\\
+\tab\tab )\\
+\tab fi\\
+fi\\
+}
+
+\tadAlinearAxiomas{criterioSeleccion(p, d1, d2)}
+\tadAxioma{criterioSelección(p, d1, d2)}{$\text{max(obtener(p, d1), obtener(p, d2))}$}
+
+\tadAlinearAxiomas{casasPisanComercios(d1, d2)}
+\tadAxioma{casasPisanComercios(d1, d2)}{
+if vacío?(claves(d1)) then\\
+\tab vacío\\
+else\\
+\tab if obtener(dameClave(d1), d1)$\ge$obtener(dameClave(d1), d2) then\\
+\tab\tab definir(dameClave(d1) \\
+\tab\tab\tab obtener(dameClave(d1),d1),\\
+\tab\tab\tab casasPisanComercios(\\
+\tab\tab\tab\tab borrar(dameClave(d1), d1),\\
+\tab\tab\tab\tab borrar(dameClave(d1), d2)\\
+\tab\tab\tab )\\
+\tab\tab )\\
+\tab else\\
+\tab\tab casasPisanComercios(\\
+\tab\tab\tab borrar(dameClave(d1), d1),\\
+\tab\tab\tab borrar(dameClave(d1), d2)\\
+\tab\tab )\\
+\tab fi\\
+fi\\
+}
+
+
+\tadAlinearAxiomas{comerciosPisanCasas(d1, d2)}
+\tadAxioma{comerciosPisanCasas(d1, d2)}{
+if vacío?(claves(d1)) then\\
+\tab vacío\\
+else\\
+\tab if obtener(dameClave(d1), d1)$>$obtener(dameClave(d1), d2) then\\
+\tab\tab definir(dameClave(d1) \\
+\tab\tab\tab obtener(dameClave(d1),d1),\\
+\tab\tab\tab comerciosPisanCasas(\\
+\tab\tab\tab\tab borrar(dameClave(d1), d1),\\
+\tab\tab\tab\tab borrar(dameClave(d1), d2)\\
+\tab\tab\tab )\\
+\tab\tab )\\
+\tab else\\
+\tab\tab comerciosPisanCasas(\\
+\tab\tab\tab borrar(dameClave(d1), d1),\\
+\tab\tab\tab borrar(dameClave(d1), d2)\\
+\tab\tab )\\
+\tab fi\\
+fi\\
+}
+
+\tadAlinearAxiomas{encontrarColisiones(d, ps)}
+\tadAxioma{encontrarColisiones(d, ps)}{
+if vacío?(claves(d)) $\vee$ vacío?(ps) then\\
+\tab vacio\\
+else\\
+\tab if def?(dameUno(ps), d) then\\
+\tab\tab definir(\\
+\tab\tab\tab dameUno(ps),\\
+\tab\tab\tab obtener(dameUno(ps), d),\\
+\tab\tab\tab encontrarColisiones(d, sinUno(ps))\\
+\tab\tab )\\
+\tab else\\
+\tab\tab encontrarColisiones(d, sinUno(ps))\\
+\tab fi\\
+fi\\
+}
+
+\tadAlinearAxiomas{sinColisiones(d, ps)}
+\tadAxioma{sinColisiones(d, ps)}{
+if vacío?(claves(d)) $\vee$ vacío?(ps) then\\
+\tab d\\
+else\\
+\tab if def?(dameUno(ps), d) then\\
+\tab\tab sinColisiones(borrar(dameUno(ps), d), sinUno(ps))\\
+\tab else\\
+\tab\tab sinColisiones(d, sinUno(ps))\\
+\tab fi\\
+fi\\
+}
+
+\tadAlinearAxiomas{ajustarSegunCasas(coms, casas)}
+\tadAxioma{ajustarSegunCasas(coms, casas)}{
+if vacío?(claves(coms)) then\\
+\tab vacío\\
+else\\
+\tab definir(\\
+\tab\tab dameClave(coms),\\
+\tab\tab max(obtener(dameClave(coms), coms), \\
+\tab\tab\tab nivelMax(casasCercanas(dameClave(coms), casas))), \\
+\tab\tab $\text{ajustarSegunCasas(borrar(dameClave(coms), coms), casas)}$\\
+\tab )\\
+fi\\
+}
+
+\tadAlinearAxiomas{casasCercanas(p, casas)}
+\tadAxioma{casasCercanas(p, casas)}{
+if vacío?(claves(casas)) then\\
+\tab vacío\\
+else\\
+\tab if distManhattan(dameClave(casas), p) $\le$ 3 then\\
+\tab\tab definir(\\
+\tab\tab\tab dameClave(casas),\\
+\tab\tab\tab obtener(dameClave(casas), casas),\\
+\tab\tab\tab casasCercanas(p, borrar(dameClave(casas), casas)),\\
+\tab\tab )\\
+\tab else\\
+\tab\tab casasCercanas(p, borrar(dameClave(casas), casas))\\
+\tab fi\\
+fi\\
+}
+
+\tadAxioma{distManhattan(p1, p2)}{
+max($\pi_1$(p1),$\pi_1$(p2)) - min($\pi_1$(p1),$\pi_1$(p2)) +\\
+max($\pi_2$(p1),$\pi_2$(p2)) - min($\pi_2$(p1),$\pi_2$(p2))
+}
+
+\tadAxioma{aumentarNiveles(d)}{
+if vacío?(claves(d)) then\\
+\tab vacío\\
+else\\
+\tab definir(\\
+\tab\tab dameClave(d),\\
+\tab\tab obtener(dameClave(d), d)+1,\\
+\tab\tab aumentarNiveles(borrar(dameClave(d), d))\\
+\tab )\\
+fi\\
+}
+
+\tadAxioma{aumentarNivelesUni(u)}{\IF vacío?(claves(u))
+    THEN vacío 
+    ELSE definir(dameClave(u), obtener(dameClave(u), u) + 1, aumentarNiveles(borrar(dameClave(u), u))) FI
+}
+
+\tadAlinearAxiomas{unidos(avanzarTurno(s, d))}
+
+\tadAxioma{unidos(iniciar(m))}{$\emptyset$}
+\tadAxioma{unidos(avanzarTurno(s, cs))}{aumentarNivelUni(unidos(s))}
+\tadAxioma{unidos(unir(s, s'))}{definir(s', 0, unidos(s))}
+
+
+\tadAlinearAxiomas{casasPropias(avanzarTurno(s, cs))}
+
+\tadAxioma{casasPropias(iniciar(m)}{$\emptyset$}
+\tadAxioma{casasPropias(avanzarTurno(s, cs))}{aumentarNiveles(\\ 
+    \tab agregarNuevasConstr(casasPropias(s), cs, $"Casa"$))}
+\tadAxioma{casasPropias(unir(s, s'))}{casasPropias(s)}
+
+\tadAlinearAxiomas{comerciosPropios(avanzarTurno(s, cs))}
+
+\tadAxioma{comerciosPropios(iniciar(m))}{$\emptyset$}
+\tadAxioma{comerciosPropios(avanzarTurno(s, cs))}{aumentarNiveles( \\
+    \tab agregarNuevasConstr(comerciosPropios(s),cs,$"Comercio"$))}
+\tadAxioma{comerciosPropios(unir(s, s'))}{comerciosPropios(s)}
+
+\tadAlinearAxiomas{agregarNuevasConstr(d, cs, constr)}
+
+\tadAxioma{agregarNuevasConstr(d, cs, constr)}{\\
+    \textbf{if} vacio?(cs) \textbf{then} d \\
+         \textbf{else} \\ 
+            \tab \textbf{if} obtener(dameClave(cs), cs) = constr \\
+                \tab \textbf{then} definir(\\
+                \tab \tab  dameClave(cs), 0, \\
+                \tab \tab  \text{agregarNuevasConstr(d, borrar(dameClave(cs), cs), constr))} \\
+                \textbf{else} agregarNuevasConstr(d, borrar(dameClave(cs), cs), constr) \\
+            \tab \tab \textbf{fi} \\
+    \textbf{fi} \\
+}
+
+
+
+\end{tad}
+
+
+\begin{tad}{\tadNombre{Servidor}}
+\tadIgualdadObservacional{s}{s'}{Servidor}{
+    partidas(s') =_{obs} partidas(s)
+}
+
+\tadGeneros{Servidor}
+\tadExporta{{generadores, observadores, popularidadDePartida}}
+\tadUsa{DICCIONARIO, MAPA, NAT, CONJUNTO, SIMCITY, POS, CONSTRUCCION, NOMBRE}
+
+% \tadAlinearFunciones{\completar}{Servidor}
+
+\tadObservadores
+\tadOperacion{partidas}{Servidor}{dicc(Nombre, <SimCity, dicc(Pos, Construccion)>)}{}
+
+\tadAlinearFunciones{agregarConstruccion}{Nombre/n, dicc(Pos,Construccion)/cs, Servidor/s}
+
+\tadGeneradores
+\tadOperacion{crearServidor}{}{Servidor}{}
+\tadOperacion{crearPartida}{Nombre/n, conj(Nat), conj(Nat), Servidor/s}{Servidor}{$\neg$def?(n, partidas(s))}
+\tadOperacion{avanzarPartida}{Nombre/n, Servidor/s}{Servidor}{
+def?(n, partidas(s)) $\yluego$  \\
+\#claves($\pi_2$(obtener(n, partidas(s)))) > 0 $\yluego$ \\
+(\paratodo{Nombre}{nombre})
+    ((def?(nombre, partidas(s)) $\wedge$ nombre $\neq$ n) $\implies_L$ \\
+        $\neg$ def?($\pi_1$(obtener(n, partidas(s))), unidos($\pi_1$(obtener(nombre, partidas(s))))))}
+\tadOperacion{agregarConstruccion}{Nombre/n, Pos/p, Construccion/c,  Servidor/s}{Servidor}{def?(n, partidas(s)) $\yluego$ ($\neg$ def?(p, $\pi_2$(obtener(n, partidas(s)))) $\wedge$ $\neg$ def?(p, casas($\pi_1$(obtener(n, partidas(s))))) $\wedge$ $\neg$ def?(p, comercios($\pi_1$(obtener(n, partidas(s))))) $\wedge$ $\pi$_1(p) $\notin$ riosHoriz($\pi_1$(obtener(n, partidas(s)))) $\wedge$ $\pi$_2(p) $\notin$ riosVert($\pi_1$(obtener(n, partidas(s))))) $\yluego$ \\
+(\paratodo{Nombre}{nombre})
+    ((def?(nombre, partidas(s)) $\wedge$ nombre $\neq$ n) $\implies_L$ \\
+        $\neg$ def?($\pi_1$ (obtener(n, partidas(s))), unidos($\pi_1$ (obtener(nombre, partidas(s))))))}
+\tadOperacion{unirPartidas}{Nombre/n1, Nombre/n2, Servidor/s}{Servidor}{def?(n1, partidas(s)) $\wedge$ def?(n2, partidas(s)) $\yluego$ \#claves($\pi_2$(obtener(n1, partidas(s)))) = 0 $\wedge$ restriccionesUnir()}
+
+\tadAlinearFunciones{popularidadDePartida}{Nombre/n, Servidor/s}
+\tadOtrasOperaciones
+\tadOperacion{popularidadDePartida}{Nombre/n, Servidor/s}{Nat}{def?(n, partidas(s))}
+\tadOperacion{turnoDePartida}{Nombre/n, Servidor/s}{Nat}{def?(n, partidas(s))}
+
+\tadAxiomas[\paratodo{servidor}{s}, \paratodo{nombre}{n, n1, n2}, \paratodo{dicc(Pos, Construccion)}{cs}, \paratodo{conj(Nat)}{hs,vs}]
+
+\tadAlinearAxiomas{partidas(agregarConstruccion(n, p, c, s))}
+
+\tadAxioma{partidas(crearServidor())}{Vacío}
+\tadAxioma{partidas(crearPartida(n, hs, vs, s))}{definir(n, <iniciar(crear(hs, vs)), Vacío>, partidas(s))}
+\tadAxioma{partidas(avanzarPartida(n, s))}{definir(n, <avanzarTurno($\pi_1$(obtener(n, partidas(s))), $\pi_2$(obtener(n, partidas(s)))), Vacío>, partidas(s))}
+\tadAxioma{partidas(unirPartidas(n1, n2, s))}{definir(n1, <unir(obtener(n1, partidas(s)), obtener(n2, partidas(s))), Vacío>, partidas(s))}
+\tadAxioma{partidas(agregarConstruccion(n, p, c, s))}{definir(\\
+\tab n,\\
+\tab < \\
+\tab\tab $\pi_1$(obtener(n, partidas(s))),\\
+\tab\tab definir(p, c, $\pi_2$(obtener(n, partidas(s))))\\
+\tab >,\\
+\tab partidas(s)\\
+)}
+\tadAxioma{popularidadDePartida(n, s)}{popularidad($\pi_1$(obtener(n, partidas(s))))}
+\tadAxioma{turnoDePartida(n, s)}{turnos($\pi_1$(obtener(n, partidas(s))))}
+
+% \tadAlinearAxiomas{\completar}
+
+\end{tad}

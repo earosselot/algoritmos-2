@@ -1,0 +1,720 @@
+\subsection{Módulo Mapa}
+
+\begin{Interfaz}
+  
+  \textbf{se explica con}: \tadNombre{Mapa}
+
+  \textbf{géneros}: \TipoVariable{mapa}
+
+  \Titulo{Operaciones básicas de mapa}
+
+  \InterfazFuncion{crear}{\In{hs}{conj(Nat)},\In{vs}{conj(Nat)}}{mapa}%
+  {$res \igobs mapa(hs, vs)$}%
+    [$O(copy(hs), copy(vs))$]
+  [crea un mapa]
+
+\end{Interfaz}
+
+\begin{Representacion}
+  
+  \Titulo{Representación de mapa}
+
+  Un mapa contiene rios infinitos horizontales y verticales. Los rios se
+  representan como conjuntos lineales de naturales que indican la posición en
+  los ejes de los ríos.
+
+  \begin{Estructura}{mapa}[estr]
+    \begin{Tupla}[estr]
+      \tupItem{horizontales}{conj(Nat)}%
+      \tupItem{verticales}{conj(Nat)}%
+    \end{Tupla}
+
+  \end{Estructura}
+  
+    \Rep[estr]{true}
+
+    ~ 
+
+  \AbsFc[estr]{mapa}[m]{
+      horizontales(m) = $estr$.horizontales $\land$ 
+      verticales(m) = $estr$.verticales
+  }
+
+\end{Representacion}
+
+~
+
+\begin{Algoritmos}
+
+\begin{algorithm}[H]{\textbf{crear}(\In{hs}{conj(Nat)}, \In{vs}{conj(Nat)}) $\to$ $res$ : estr}
+\begin{algorithmic}[1]
+    \State $estr.horizontales \gets hs$
+    \State $estr.verticales \gets vs$\\
+    \Return estr
+    \medskip
+    \Statex \underline{Complejidad:} $O(copy(hs) + copy(vs))$
+\end{algorithmic}
+\end{algorithm}
+  
+\end{Algoritmos}
+
+
+% SIMCITY
+\subsection{Módulo SimCity}
+
+\begin{Interfaz}
+  
+  \textbf{se explica con}: \tadNombre{SimCity}
+
+  \textbf{géneros}: \TipoVariable{simcity}
+
+  \Titulo{Operaciones básicas de simcity}
+
+
+% Luk pero no confiar demasiado 
+
+\InterfazFuncion{Iniciar}{\In{hs}{conj(Nat)},\In{vs}{conj(Nat)}}{simcity}%
+  {$res \igobs iniciar(mapa(hs,vs))$}%
+    [$O(copy(hs), copy(vs))$]
+  [crea una partida de SimCity]
+  
+\InterfazFuncion{Casas}{\In{s}{simcity}}{dicc(Pos,Nivel)}%
+  {$res \igobs casas(s)$}%
+    [$O(casas + comercios + |unidos\_totales|*(max(unidos_i.casas + unidos_i.comercios) + casas * |comercios| + |casas| * |casUN| + |comercios| * |comUN|))$]
+  [devuelve las casas de la partida]
+  
+\InterfazFuncion{Comercios}{\In{s}{simcity}}{dicc(Pos,Nivel)}%
+  {$res \igobs comercios(s)$}%
+    [$O(casas + comercios + |unidos\_totales|*(max(unidos_i.casas + unidos_i.comercios) + casas * |comercios| + |casas| * |casUN| + |comercios| * |comUN|))$]
+  [devuelve los comercios de la partida]
+  
+\InterfazFuncion{AvanzarTurno}{\Inout{s}{simcity}}{}%
+[$s=s_{0} \wedge (\exists \ p: Pos)((def?(p, casas(s)) \wedge_{L} obtener(p, casas(s)) = 0) \vee (def?(p, comercios(s)) \wedge_{L} obtener(p, comercios(s)) = 0))$]
+  {$s \igobs avanzarTurno(s_0,..)$}%
+    [$O(\#Claves(e.casas)+\#Claves(e.comercios) + \#Claves(e.unidos))$]
+  [avanza el turno de la partida]
+
+% ESTO SE HACE DESDE EL SERVIDOR
+%   \InterfazFuncion{AgregarCasa}{\Inout{s}{simcity}, \In{p}{Pos}}{}%
+% [$(s=s_0) \wedge (\forall \ p: Pos)(\neg def?(p,casas(s)) \wedge \neg def?(p,comercios(s)))$]
+%   {$(s.popularidad \igobs s_0.popularidad) \wedge 
+%   (s.turnos \igobs s_0.turnos) \wedge
+%   (s.unidos \igobs s_0.unidos) \wedge
+%   (s.comercios \igobs s_0.comercios) \wedge
+%   (s.casas \igobs definir(p,0,s_0.casas))$}%
+%     [$O(1)$]
+%   [agrega una casa en la posicion p]
+  
+%   \InterfazFuncion{AgregarComercio}{\Inout{s}{simcity}, \In{p}{Pos}}{}%
+% [$(s=s_0) \wedge (\forall \ p: Pos)(\neg def?(p,casas(s)) \wedge \neg def?(p,comercios(s)))$]
+%   {$(s.popularidad \igobs s_0.popularidad) \wedge 
+%   (s.turnos \igobs s_0.turnos) \wedge
+%   (s.unidos \igobs s_0.unidos) \wedge
+%   (s.casas \igobs s_0.casas) \wedge
+%   (s.comercios \igobs definir(p,0,s_0.comercios)) $}%
+%     [$O(1)$]
+%   [agrega un comercio en la posicion p]
+  
+  \InterfazFuncion{Unir}{\Inout{s}{simcity}, \In{s2}{simcity}}{}%
+[$(s=s_0)$]
+  {$s \igobs unir(s_0, s2)$}%
+    [$O(1)$]
+  [une a la partida s el simcity s2]
+  [el elemento s2 es modificable]
+  
+  \InterfazFuncion{Popularidad}{\In{s}{simcity}}{Nat}%
+[$true$]
+  {$res \igobs s.popularidad$}%
+    [$O(1)$]
+  [retorna la popularidad de la partida]
+  
+  \InterfazFuncion{Turnos}{\In{s}{simcity}}{Nat}%
+[$true$]
+  {$res \igobs s.turnos$}%
+    [$O(1)$]
+  [devuelve la cantidad de turnos sucedidos desde iniciada la partida]
+
+\end{Interfaz}
+
+\begin{Representacion} % Julian - Help :( 
+  
+  \Titulo{Representación de simcity}
+
+    Descripcion de simcity
+
+  \begin{Estructura}{simcity}[estr]
+    \begin{Tupla}[estr]
+      \tupItem{turnos}{Nat}%
+      \tupItem{popularidad}{Nat}%
+      \tupItem{casas}{dicc(Pos, Nat)}%
+      \tupItem{comercios}{dicc(Pos, Nat)}%
+      \tupItem{unidos}{dicc(SimCity, Nat)}%
+      \tupItem{mapa}{Mapa}
+    \end{Tupla}
+  \end{Estructura}
+    
+    ESTR
+    ABS
+    
+    % estructura:
+    % turnos (nat)
+    % mapa (mapa)
+    % casas (dicc(pos, turnos)) 
+    % comercios (dicc(pos, turnos))
+    % unidos (dicc(simcity, turnos))
+    % poopularidad (nat)
+
+    % funciones:
+    % iniciar(conj(Nat), conj(Nat)) crea el mapa e inicializa la partida
+    
+    % casas(s) = funcion que itera unidos y casas
+    
+    % comercios(s) itera unidos, comercios, y ajusta niveles con casas
+    
+    % avanzarTurno() sube todos un nivel {hay this.casas o this.comercios nivel 0}
+    
+    % // O(1):
+    % agregarCasa(pos) agregar casa nivel 0 a this.casas {la posicion no esta ocupada, ni en unidos}
+    
+    % agregarComercio(pos) agregar comercio nivel 0 a this.comercios {la posicion no esta ocupada, ni en unidos}
+    
+    % unir(nombreSC2) agregar SC2 a this.unidos {preconciciones}
+    
+    % popularidad() devuelve this.popularidad
+    
+    % turnos() devuelve this.turnos
+    
+
+
+    % Para cada turno tiene que haber una construcción que haya sido creada en ese turno. Para la popularidad habíamos dicho que tenía que ser el largo de unidos (empmieza en 0 o 1?)
+    % casas y comercios no se superponen
+    % rios no se superponen con casas
+    % el nivel de las construcciones no puede ser mayor que turnos
+    % el maximo de los valores de unidos tiene que ser menor o igual que turnos.
+    % no se superponen construcciones niveles maximo con unidos
+    % no se superponen rios de unidos con costrucciones
+    % 
+    \Rep[estr]{
+        (\paratodo{Nat}{i})(i \le e.turnos \Rightarrow_L \\
+        \tab(\exists p : Pos)(def?(pos, e.casas) \wedge_L  obtener(pos, e.casas) = i)\\
+        \tab\teb\vee\\
+        \tab(\exists p : Pos)(def?(pos, e.comercios) \wedge_L obtener(pos, e.comercios) = i)\\
+        )\\
+        \wedge\\
+        e.popularidad = \#(claves(e.unidos))\\
+        \wedge\\
+        (\paratodo{Pos}{p})(\\
+        \tab(p \in claves(estr.casas) \Rightarrow_L (p \notin claves(estr.comercios)\\
+        \tab\tab\wedge \pi_1(p) \notin verticales(estr.mapa) \wedge \pi_2(p) \notin horizontales(estr.mapa)\\
+        \tab\tab\wedge obtener(p, estr.casas) \le estr.turnos\\
+        \tab\tab\wedge (\paratodo{SimCity}{sc})(def?(sc, estr.unidos) \Rightarrow_L\\
+        \tab\tab\tab \pi_1(p) \notin verticales(sc.mapa) \wedge \pi_2(p) \notin horizontales(sc.mapa)\\
+        \tab\tab\tab \wedge (def?(p, sc.casas) \Rightarrow_L obtener(p, sc.casas) < sc.turnos)\\
+        \tab\tab\tab \wedge (def?(p, sc.comercios) \Rightarrow_L obtener(p, sc.comercios) < sc.turnos)\\
+        \tab\tab)\\
+        \tab))\\
+        \tab\wedge\\
+        \tab(p \in claves(estr.comercios) \Rightarrow_L (p \notin claves(estr.casas)\\
+        \tab\tab\wedge \pi_1(p) \notin verticales(estr.mapa) \wedge \pi_2(p) \notin horizontales(estr.mapa)\\
+        \tab\tab\wedge obtener(p, estr.comercios) \le estr.turnos\\
+        \tab\tab\wedge (\paratodo{SimCity}{sc})(def?(sc, estr.unidos) \Rightarrow_L\\
+        \tab\tab\tab \pi_1(p) \notin verticales(sc.mapa) \wedge \pi_2(p) \notin horizontales(sc.mapa)\\
+        \tab\tab\tab \wedge (def?(p, sc.casas) \Rightarrow_L obtener(p, sc.casas) < sc.turnos)\\
+        \tab\tab\tab \wedge (def?(p, sc.comercios) \Rightarrow_L obtener(p, sc.comercios) < sc.turnos)\\
+        \tab\tab)\\
+        \tab))\\
+        )\\
+    }
+
+    ~ 
+    
+    % Abs
+    \AbsFc[estr]{simcity}[sc]{
+        popularidad(sc) = estr.popularidad \wedge \\
+        casasPropias(sc) = estr.casas \wedge \\
+        comerciosPropios(sc) = estr.comercios \wedge \\ 
+        turnos(sc) = estr.turnos \wedge \\
+        mapa(sc) = estr.mapa \wedge \\
+        unidos(sc) = estr.unidos \wedge \\
+    }
+    
+  ~
+
+\end{Representacion}
+
+~
+
+\begin{Algoritmos}
+
+\begin{algorithm}[H]{\textbf{Iniciar}(\In{hs}{conj(Nat)}, \In{vs}{conj(Nat)}) $\to$ $res$ : estr}
+\begin{algorithmic}[1]
+    \State $estr.mapa \gets crear(hs, vs)$
+    \State $estr.turnos \gets 0$
+    \State $estr.popularidad \gets 0$
+    \State $estr.casas \gets Vacio() \textit{// Vacio de DiccLineal}$
+    \State $estr.comercios \gets Vacio() \textit{// Vacio de DiccLineal}$
+    \State $estr.unidos \gets Vacio() \textit{// Vacio de DiccLineal}$\\
+    \Return estr
+    \medskip
+    \Statex \underline{Complejidad:} $O(copy(hs) + copy(vs))$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{Casas}(\In{e}{estr}) $\to$ $res$ : dicc(Pos, Nivel)} % Cocho
+\begin{algorithmic}[1]
+    \Return $calcularConstrucciones(e).FST$ \\
+    \medskip
+    \Statex \underline{Complejidad:} $calcular$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{Comercios}(\In{e}{estr}) $\to$ $res$ : dicc(Pos, Nivel)} % Cocho
+\begin{algorithmic}[1]
+    \Return $calcularConstrucciones(e).SND$ \\
+    \medskip
+    \Statex \underline{Complejidad:} $calcular$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{calcularConstrucciones}(\In{e}{estr}) $\to$ $res$ : tupla(dicc(Pos, Nivel), dicc(Pos, Nivel))} % Cocho
+\begin{algorithmic}[1]
+    \State \Comment{Genero dos diccionarios lineales donde voy a guardar las casas y los comercios, en estos se van a agregar las construcciones de los unidos. Se hace una copia porque no queremos pisar estr.casas ni estr.comercios.}
+    \State $casas \gets new DiccLineal(Pos, Nivel)$ \Comment{O(1)}
+    \State $casas \gets copiar(e.casas)$ \Comment{O(|e.casas|)}
+    \State $comercios \gets new DiccLineal(Pos, Nivel)$ \Comment{O(1)}
+    \State $comercios \gets copiar(e.comercios)$ \Comment{O(|e.comercios|)}
+    \State $it \gets creatIt(e.unidos)$ \Comment{O(1)}
+    \While{haySiguiente(it)} \Comment{O(WHILE)}
+        \State \Comment{Para cada simcity en estr.unidos, me copio las construcciones en un diccionario y les subo el nivel de acuerdo a la cantidad de turnos que hace que se unieron.}
+        \State $casasUnidoNiveladas \gets new DiccLineal(Pos, Nivel)$ \Comment{O(1)}
+        \State $comerciosUnidoNivelada \gets new DiccLineal(Pos, Nivel)$ \Comment{O(1)}
+        \State $casasUnidoNiveladas \gets subirNivel(siguienteSignificado(it), casas(siguienteClave(it)))$ \Comment{O(|casas(estr.unidos[i])|)}
+        \State $comerciosUnidoNivelada \gets subirNivel(siguienteSignificado(it), comercios(siguienteClave(it)))$ {O(|comercios(estr.unidos[i])|)}
+        \State $unirConstrucciones(casas, comercios, casasUnidoNiveladas, comerciosUnidoNiveladas)$ \Comment{O(|casas| * |comercios|) + O(|casas| * |casUN|) + O(|comercios| * |comUN|)}
+        \State $avanzar(it)$ \Comment{O(1)}
+    \EndWhile \\
+    \Return $<casas, comercios>$
+    \medskip
+    \Statex \underline{Complejidad:} O(casas + comercios + |unidos\_totales|*(max(unidos_i.casas + unidos_i.comercios) + casas * |comercios| + |casas| * |casUN| + |comercios| * |comUN|))
+    
+    \Statex \text{Donde unidos totales son la cantidad de los unidos y uniones de los unidos recursivamente}
+    \Statex \text{Donde} $max(unidos_i.casas + unidos_i.comercios)$ \text{ es la cantidad maxima de construcciones en alguno de los unidos}
+
+    \Statex \text{Ejemplo:}
+	\Statex \tab\text{s1.unir(s2).unir(s3.unir(s4))}
+
+	\Statex \tab\text{construcciones(s1)=4}
+	\Statex \tab\text{construcciones(s2)=3}
+	\Statex \tab\text{construcciones(s3)=5}
+	\Statex \tab\text{construcciones(s4)=1}
+
+	\Statex \tab\text{unidos\_totales(s1) = 3}
+	\Statex \tab\text{max(unidos_i.casas + unidos_i.comercios) = 5}
+
+    % \Statex \text{Cada término de dicha expresión se puede acotar como la cantidad de construcciones totales del simcity al cuadrado,}
+    % \Statex es decir O((|\pi_1(res)|+|\pi_2(res)|)^2)
+    % \Statex
+    % \Statex \underline{Complejidad:} $O((|\pi_1(res)|+|\pi_2(res)|)^2)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{subirNivel}(\In{n}{Nat}, \In{constr}{dicc(Pos, Nivel)}) $\to$ $res$ : dicc(Pos, Nivel)} % Cocho
+\begin{algorithmic}[1]
+    \State $res \gets new DiccionarioLineal(Pos, Nivel)$ \Comment{O(1)}
+    \State $res \gets copiar(constr)$ \Comment{O(|constr|)}
+    \State $it \gets crearIt(res)$  \Comment{O(1)}
+    \While{haySiguiente(it)} \Comment{O(|constr|)}
+        \State $SiguienteSignificado(it) = SiguienteSignificado(it) + n$ \Comment{O(1)}
+        \State $avanzar(it)$ \Comment{O(1)}
+    \EndWhile\\
+    \Return $res$ \Comment{O(1)}
+    \medskip
+    \Statex \underline{Complejidad:} $O(|constr|)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{UnirConstrucciones}(\Inout{casas}{dicc(Pos, Nivel)}, \Inout{comercios}{dicc(Pos, Nivel)}, \In{casUN}{dicc(Pos, Nivel)}, \In{comUN}{dicc(Pos, Nivel)})} % Cocho
+\begin{algorithmic}[1]
+    \State // Hago la union de las casas seleccionando las de mayor nivel en caso de superposicion entre casas
+    \State $it \gets crearIt(casUN)$ \Comment{O(1)}
+    \While{haySiguiente(it)} \Comment{O(|casas| * |casUN|)}
+    
+    
+        % Version anterior era n*n*n
+        % \If{definido?(casas, siguienteClave(it))} \Comment{O(|claves(casas)|)}
+        %     \State definir(casas, siguienteClave(it), max(siguienteSignificado(it), significado(casas, siguienteClave(it))))
+        % \Else 
+        %     \State definir(casas, siguienteClave(it), siguienteSignificado(it))
+        % \EndIf
+        % \State avanzar(it)
+        % version actual n*n
+        
+        
+        \State $itCasas \gets crearIt(casas)$ \Comment{O(1)}
+        \While{haySiguiente(itCasas)} \Comment{O(|casas|)}
+            \If{siguienteClave(it) = siguienteClave(itCasas)} \Comment{O(1)}
+                \State siguienteSignificado(itCasas) = max(siguienteSignificado(it), siguienteSignificado(itCasas)) \Comment{O(1)}
+            \EndIf
+            \State avanzar(itCasas) \Comment{O(1)}
+        \EndWhile
+        \If{$\neg$haySiguiente(itCasas)} \Comment{O(1)}
+            \State definirRapido(casas, anteriorClave(it), anteriorSignificado(it)) \Comment{O(1)}
+        \EndIf
+        \State avanzar(it)
+    \EndWhile
+    \State // Hago la union de los comercios seleccionando los de mayor nivel en caso de superposicion entre comercios
+    \State $it \gets crearIt(comUN)$
+    \While{haySiguiente(it)} \Comment{O(|comercios| * |comUN|)}
+        % \State if definido?(comercios, siguienteClave(it))
+        % \State \tab then definir(comercios, siguienteClave(it), max(siguienteSignificado(it), significado(comercios, siguienteClave(it))))
+        % \State \tab else definir(comercios, siguienteClave(it), siguienteSignificado(it))
+        % \State fi
+        % \State avanzar(it)
+        \State $itComercios \gets crearIt(comercios)$ \Comment{O(1)}
+        \While{haySiguiente(itComercios)} \Comment{O(|comercios|)}
+            \If{siguienteClave(it) = siguienteClave(itComercios)} \Comment{O(1)}
+                \State siguienteSignificado(itComercios) = max(siguienteSignificado(it), siguienteSignificado(itComercios)) \Comment{O(1)}
+            \EndIf
+            \State avanzar(itComercios) \Comment{O(1)}
+        \EndWhile
+        \If{$\neg$haySiguiente(itComercios)} \Comment{O(1)}
+            \State definirRapido(comercios, anteriorClave(it), anteriorSignificado(it)) \Comment{O(1)}
+        \EndIf
+        \State avanzar(it) \Comment{O(1)}
+    \EndWhile
+    \State // En este punto casas y comercios tienen todas las construcciones de ambos simcity, pero pueden haber superposiciones cruzadas (entre casas y comercios).
+    \State // Primero, subimos los niveles de los comercios si tienen casas cercanas de mayor nivel
+    \State it $\gets$ crearIt(comercios) \Comment{O(1)}
+    \While{haySiguiente(it)} \Comment{O(|comercios|*|casas|)}
+        \State ajustarNivelComercio(siguienteSignificado(it), siguienteClave(it), casas) \Comment{O(|casas|)}
+        \State avanzar(it) \Comment{O(1)}
+    \EndWhile
+    \State // ahora resolvemos superposiciones entre casas y comercios. Si tienen igual nivel nos quedamos con la casa
+    \State it $\gets$ crearIt(casas) \Comment{O(1)}
+    \While{haySiguiente(it)} \Comment{O(|casas| * |comercios|)}
+        \If{definido?(comercios, siguienteClave(it))} \Comment{O(|comercios|)}
+            \If{siguienteSignificado(it) $<$ significado(comercios, siguienteClave(it))} \Comment{O(|comercios|)}
+                \State borrar(comercios, siguienteClave(it)) \Comment{O(|comercios|)}
+                \Else 
+                \State borrar(comercios, siguienteClave(it)) \Comment{O(|comercios|)}
+            \EndIf
+        \EndIf
+        \State avanzar(it) \Comment{O(1)}
+    \EndWhile
+    \medskip
+    \Statex \underline{Complejidad:} $O(|casas| * |comercios|) + O(|casas| * |casUN|) + O(|comercios| * |comUN|)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{ajustarNivelComercio}(\Inout{nivel}{Nivel}, \In{pos}{Pos}, \In{casas}{dicc(Pos, nivel))}} % Cocho
+\begin{algorithmic}[1]
+    \State it $\gets$ crearIt(casas) \Comment{O(1)}
+    \While{haySiguiente(it)} \Comment{O(|casas|)}
+    \If{siguienteClave(it) != pos $\wedge_L$ estaCerca(siguienteClave(it), pos)} \Comment{O(1)}
+        \State nivel $\gets$ max(nivel, siguinteSignificado(it)) \Comment{O(1)}
+    \EndIf
+    \State avanzar(it) \Comment{O(1)}
+    \EndWhile
+    \medskip
+    \Statex \underline{Complejidad:} $O(|casas|)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{estaCerca}(\In{posA}{Pos}, \In{posB}{Pos}) $\to$ $res$ : dicc(Pos, Nivel)} % Cocho
+\begin{algorithmic}[1]
+    \State distHorizontal $\gets$ max(posA.FST, posB.FST) - min(posA.FST, posB.FST) \Comment{O(1)}
+    \State distVertical $\gets$ max(posA.SND, posB.SND) - min(posA.SND, posB.SND) \Comment{O(1)} \\
+    \Return distHorizontal + distVertical $\leq$ 3 \Comment{O(1)}
+    \medskip
+    \Statex \underline{Complejidad:} $O(1)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{AvanzarTurno}(\Inout{e}{estr}, \In{cs}{diccLineal(Pos, Construccion)})}
+\begin{algorithmic}[1]
+    \State $it \gets crearIt(e.cs)$ // cs es DiccLineal
+    \While{HaySiguiente(it)}
+    \If{SiguienteSignificado(it) = $"Casa"$}
+    \State DefinirRapido(e.casas, SiguienteClave(it), 0)
+    \EndIf
+    \If{SiguienteSignificado(it) = $"Comercio"$}
+    \State DefinirRapido(e.comercios, SiguienteClave(it), 0)
+    \EndIf
+    \State Avanzar(it)
+    \EndWhile
+    \State $it \gets crearIt(e.casas)$ // e.casas es DiccLineal
+    \While{HaySiguiente(it)}
+    \State SiguienteSignificado(it) = SiguienteSignificado(it) + 1
+    \State Avanzar(it)
+    \EndWhile
+    \State $it \gets crearIt(e.comercios)$ // e.comercios es DiccLineal
+    \While{HaySiguiente(it)}
+    \State SiguienteSignificado(it) = SiguienteSignificado(it) + 1
+    \State Avanzar(it)
+    \EndWhile
+    \State $it \gets crearIt(e.unidos)$ // e.unidos es DiccLineal
+    \While{HaySiguiente(it)}
+    \State SiguienteSignificado(it) = SiguienteSignificado(it) + 1
+    \State Avanzar(it)
+    \EndWhile\\
+    \Return e
+    \medskip
+    \Statex \underline{Complejidad:} $O(\#Claves(e.casas)+\#Claves(e.comercios) + \#Claves(e.unidos))$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{Unir}(\Inout{e}{estr}, \In{e2}{estr})}
+\begin{algorithmic}[1]
+    \State DefinirRapido(e.unidos, e2, 0)
+    \medskip
+    \Statex \underline{Complejidad:} $O(1)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{Popularidad}(\In{e}{estr}) $\to$ $res$ : Nat} 
+\begin{algorithmic}[1]
+    \State \Return e.popularidad
+    \medskip
+    \Statex \underline{Complejidad:} $O(1)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{Turnos}(\In{e}{estr}) $\to$ $res$ : Nat} 
+\begin{algorithmic}[1]
+    \State \Return e.turnos
+    \medskip
+    \Statex \underline{Complejidad:} $O(1)$
+\end{algorithmic}
+\end{algorithm}
+
+  
+\end{Algoritmos}
+
+
+%SERVIDOR FER O LO RAJAMOS (a favor: 4, en contra: 0, abstenciones: 0)
+
+    % Falta la parte de Operaciones Básicas de Servidor
+
+    % Abs()
+    % Estr()
+    % estructura:
+    % partidas (diccTrie(nombre, simcity))
+    
+    
+    
+    % funciones:
+    % crearPartida(nombreSC, conj(Nat), conj(Nat)) crea el mapa y la partida
+    % avanzarTurno(nombreSC) sumar 1 a SC.casas, SC.comercios y a SC.unidos 
+    % casas(NombreSC) devuelve las partidas(NombreSC).casas() 
+    % comercios(NombreSC) devuelve partidas(NombreSC).comercios() 
+    
+    % // O(|Nombre|):
+    % agregarCasa(pos, nombreSimCity) agregar casa nivel 0 a SC.casas {la posicion no esta ocupada, ni en unidos} 
+    % agregarComercio(pos, nombreSimCity) agregar comercio nivel 0 a SC.comercios {la posicion no esta ocupada, ni en unidos} 
+    % unir(nombreSC1, nombreSC2) agregar SC2 a SC1.unidos {preconciciones}
+    % popularidad(nombreSC1) devuelve SC1.popularidad
+    % turnos(nombreSC) devuelve SC.turnos
+
+\subsection{Módulo Servidor}
+
+\begin{Interfaz}
+  
+    \textbf{se explica con}: \tadNombre{Servidor}
+    
+    \textbf{géneros}: \TipoVariable{servidor}
+    
+    \Titulo{Operaciones básicas de servidor}
+    
+    \InterfazFuncion{CrearServidor}{}{servidor}%
+    [$true$]
+    {$res \igobs crearServidor()$}%
+    [$O(1)$]
+    [crea un servidor vacío]
+    
+    \InterfazFuncion{CrearPartida}{\Inout{s}{servidor}, \In{nombre}{String}, \In{hs}{Conj(Nat)}, \In{vs}{Conj(Nat)}}{}%
+    [$s = s_0 \wedge \neg def?(nombre, s)$]
+    {$s \igobs crearPartida(nombre, hs, vs, s_0)$}%
+    [$O(copy(hs), copy(vs))$]
+    [crea una partida con los ríos indicados y la añade al servidor con el nombre provisto]
+    
+    \InterfazFuncion{CasasDePartida}{\In{s}{servidor}, \In{nombre}{String}}{dicc(Pos, Nivel)}%
+    [$def?(nombre, s)$]
+    {$res \igobs casas(\pi_1(obtener(nombre, partidas(s))))$}%
+    [$O(casas + comercios + |unidos\_totales|*(max(unidos_i.casas + unidos_i.comercios) + casas * |comercios| + |casas| * |casUN| + |comercios| * |comUN|))$]
+    [devuelve las casas de una partida]
+    
+    \InterfazFuncion{ComerciosDePartida}{\In{s}{servidor}, \In{nombre}{String}}{dicc(Pos, Nivel)}%
+    [$def?(nombre, s)$]
+    {$res \igobs comercios(\pi_1(obtener(nombre, partidas(s))))$}%
+    [$O(casas + comercios + |unidos\_totales|*(max(unidos_i.casas + unidos_i.comercios) + casas * |comercios| + |casas| * |casUN| + |comercios| * |comUN|))$]
+    [devuelve los comercios de una partida]
+    
+    \InterfazFuncion{AvanzarPartida}{\Inout{s}{servidor}, \In{nombre}{String}}{}%
+    [$s = s_0 \wedge def?(nombre, s) \wedge (\paratodo{Nombre}{nombre})
+    ((def?(nombre, partidas(s)) $\wedge$ nombre $\neq$ n) $\implies_L$ \\
+        $\neg$ def?($\pi_1$ (obtener(n, partidas(s))), unidos($\pi_1$ (obtener(nombre, partidas(s))))))$]
+    {$s \igobs avanzarPartida(nombre, s_0)$}%
+    [$O( \#Claves(\pi_1(obtener(nombre,e.partidas)).casas) + \#Claves(\pi_1(obtener(nombre,e.partidas)).comercios) + \#Claves(\pi_1(obtener(nombre,e.partidas)).unidos) + |nombre| )$]
+    [avanza el turno de una partida (creando las construcciones agregadas previamente)]
+    
+    \InterfazFuncion{AgregarCasa}{\Inout{s}{servidor}, \In{nombre}{String}, \In{pos}{Pos}}{}%
+    [$s = s_0 \wedge def?(nombre, s) \yLuego (\neg def?(pos, casas(\pi_1(obtener(nombre, partidas(s))))) \wedge \neg def?(pos, comercios(\pi_1(obtener(nombre, partidas(s))))) \wedge \neg def?(pos, \pi_2(obtener(nombre, partidas(s)))) \wedge (\paratodo{Nombre}{nombre})
+    ((def?(nombre, partidas(s)) $\wedge$ nombre $\neq$ n) $\implies_L$ \\
+        $\neg$ def?($\pi_1$ (obtener(n, partidas(s))), unidos($\pi_1$ (obtener(nombre, partidas(s)))))))$]
+    {$s \igobs agregarConstruccion(nombre, pos, "Casa", s_0)$}%
+    [$O(|nombre|)$]
+    [agrega una casa para colocar en la posición indicada  al avanzar el turno]
+    
+    \InterfazFuncion{AgregarComercio}{\Inout{s}{servidor}, \In{nombre}{String}, \In{pos}{Pos}}{}%
+    [$s = s_0 \wedge def?(nombre, s) \yLuego (\neg def?(pos, casas(\pi_1(obtener(nombre, partidas(s))))) \wedge \neg def?(pos, comercios(\pi_1(obtener(nombre, partidas(s))))) \wedge \neg def?(pos, \pi_2(obtener(nombre, partidas(s)))) \wedge (\paratodo{Nombre}{nombre})
+    ((def?(nombre, partidas(s)) $\wedge$ nombre $\neq$ n) $\implies_L$ \\
+        $\neg$ def?($\pi_1$ (obtener(n, partidas(s))), unidos($\pi_1$ (obtener(nombre, partidas(s)))))))$]
+    {$s \igobs agregarConstruccion(nombre, pos, "Comercio", s_0)$}%
+    [$O(|nombre|)$]
+    [agrega un comercio para colocar en la posición indicada al avanzar el turno]
+    
+    \InterfazFuncion{PopularidadDePartida}{\In{s}{servidor}, \In{nombre}{String}}{Nat}%
+    [$true$]
+    {$res \igobs popularidadDePartida(nombre, s)$}%
+    [$O(|nombre|)$]
+    [regresa la popularidad de la partida con el nombre dado]
+    
+    \InterfazFuncion{TurnoDePartida}{\In{s}{servidor}, \In{nombre}{String}}{Nat}%
+    [$true$]
+    {$res \igobs turnoDePartida(nombre, s)$}%
+    [$O(|nombre|)$]
+    [regresa el turno actual de la partida con el nombre dado]
+    
+    \InterfazFuncion{UnirPartidas}{\Inout{s}{servidor}, \In{nombre1}{String}, \In{nombre2}{String}}{}%
+    [$s = s_0 \wedge def?(nombre1, s) \wedge def?(nombre2, s) \wedge \#claves(\pi_2(obtener(nombre1, partidas(s)))) = 0 \yLuego restriccionesUnir()$]
+    {$s \igobs unirPartidas(nombre1, nombre2, s_0)$}%
+    [$O(max(|nombre1|, |nombre2|))$]
+    [agrega un comercio para colocar en la posición indicada al avanzar el turno]
+    
+\end{Interfaz}
+
+\begin{Representacion}
+  
+  \Titulo{Representación de servidor}
+
+    Descripcion de servidor
+
+  \tadAlinearAxiomas{Rep(e)}
+  
+  \begin{Estructura}{servidor}[estr]
+    \begin{Tupla}[estr]
+      \tupItem{partidas}{dicc(String, <SimCity, dicc(Pos, Construccion)>)}%
+    \end{Tupla}
+  \end{Estructura}
+  
+    \Rep[estr]{
+    (\paratodo{String}{n})(\paratodo{Pos}{p})(\\
+    \tab def?(n, e.partidas) \Rightarrow_L (def?(p, \pi_2(obtener(n, e.partidas))) \Rightarrow_L\\
+    \tab\tab \neg def?(p, casas(obtener(n, e.partidas))) \wedge \neg def?(p, comercios(obtener(n, e.partidas)))\\
+    \tab)\\
+    )
+    }
+
+    ~ 
+
+  \AbsFc[estr]{servidor}[e]{ servidor s/\\
+  (partidas(s) = e.partidas)
+  }
+
+\end{Representacion}
+
+~
+
+\begin{Algoritmos}
+
+\begin{algorithm}[H]{\textbf{CrearServidor}() $\to$ res : estr}
+\begin{algorithmic}[1]
+    \State $res.partidas \gets Vacio()$ // Vacio() de DiccTrie\\
+    \Return res
+    \medskip
+    \Statex \underline{Complejidad:} O(1)
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{CrearPartida}(\Inout{e}{estr}, \In{nombre}{String}, \In{hs}{conj(Nat)}, \In{vs}{conj(Nat)})}
+\begin{algorithmic}[1]
+    \State DefinirRapido(nombre, new Tupla(Iniciar(hs,vs), Vacío), s.partidas)\\
+    \Return
+    \medskip
+    \Statex \underline{Complejidad:} O(copy(hs), copy(vs))
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{CasasDePartida}(\In{e}{estr}, \In{nombre}{String}) $\to$ res : dicc(Pos, Nivel)}
+\begin{algorithmic}[1]
+    \State \Return Casas(Significado(e.partidas, nombre).FST)
+    \medskip
+    \Statex \underline{Complejidad:} $O(casas + comercios + |unidos\_totales|*(max(unidos_i.casas + unidos_i.comercios) + casas * |comercios| + |casas| * |casUN| + |comercios| * |comUN|))$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{ComerciosDePartida}(\In{e}{estr}, \In{nombre}{String}) $\to$ res : dicc(Pos, Nivel)}
+\begin{algorithmic}[1]
+    \State \Return Comercios(Significado(e.partidas, nombre).FST)
+    \medskip
+    \Statex \underline{Complejidad:} $O(casas + comercios + |unidos\_totales|*(max(unidos_i.casas + unidos_i.comercios) + casas * |comercios| + |casas| * |casUN| + |comercios| * |comUN|))$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{AvanzarPartida}(\Inout{e}{estr}, \In{nombre}{String})}
+\begin{algorithmic}[1]
+    \State AvanzarTurno(Significado(e.partidas, nombre).FST, Significado(e.partidas, nombre).SND)
+    \State \Return
+    \medskip
+    \Statex \underline{Complejidad:}
+    \Statex O( \#Claves(\pi_1(obtener(nombre,e.partidas)).casas)
+    \Statex + \#Claves(\pi_1(obtener(nombre,e.partidas)).comercios)
+    \Statex \tab + \#Claves(\pi_1(obtener(nombre,e.partidas)).unidos)
+    \Statex + |nombre| )
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{AgregarCasa}(\Inout{e}{estr}, \In{nombre}{String}, \In{pos}{Pos})}
+\begin{algorithmic}[1]
+    \State DefinirRapido(Significado(e.partidas, nombre).SND, pos, $"Casa"$)
+    \State \Return
+    \medskip
+    \Statex \underline{Complejidad:} O(|nombre|)
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{AgregarComercio}(\Inout{e}{estr}, \In{nombre}{String}, \In{pos}{Pos})}
+\begin{algorithmic}[1]
+    \State DefinirRapido(Significado(e.partidas, nombre).SND, pos, $"Comercio"$)
+    \State \Return
+    \medskip
+    \Statex \underline{Complejidad:} O(|nombre|)
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{UnirPartidas}(\Inout{e}{estr}, \In{nombre1}{String}, \In{nombre2}{String}}
+\begin{algorithmic}[1]
+    \State Unir(Significado(e.partidas, nombre1).FST, Significado(e.partidas, nombre2).FST)
+    \State \Return
+    \medskip
+    \Statex \underline{Complejidad:} O(max(|nombre1|, |nombre2|))
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{PopularidadDePartida}(\In{e}{estr}, \In{nombre}{String})}
+\begin{algorithmic}[1]
+    \State \Return Popularidad(Significado(e.partidas, nombre).FST)
+    \medskip
+    \Statex \underline{Complejidad:} O(|nombre|)
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{TurnoDePartida}(\In{e}{estr}, \In{nombre}{String})}
+\begin{algorithmic}[1]
+    \State \Return Turnos(Significado(e.partidas, nombre).FST)
+    \medskip
+    \Statex \underline{Complejidad:} O(|nombre|)
+\end{algorithmic}
+\end{algorithm}
+  
+\end{Algoritmos}
