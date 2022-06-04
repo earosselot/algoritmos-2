@@ -35,13 +35,25 @@ verticalesUnidos(cjs) ≡ if unidos(s) = ∅
                         else verticales(mapa(dameUno(claves(unidos)))) ⋃ verticalesUnidos(sinUno(cjs))
                     fi
 
+
+                    
 nivelMaxConstruccion : SimCity ➝ nat
 
 nivelMaxConstruccion(a) ≡ max(nivelMaxPropias(s), nivelMaxUnidas(s))
 
 nivelMaxPropias: SimCity ➝ nat
-
 nivelMaxPropias(a) ≡ max(nivelMax(casas(a)), nivelMax(comercios(a)))
 
+nivelMaxUnidas: SimCity ➝ nat
+nivelMaxUnidas(a) ≡ max(nivelMaxConstruccion(dameUno(claves(unidos(a)))), nivelMaxUnidas(borrar(dameUno(claves(unidos(a)))), unidos(a)))
+
 nivelMax: dicc(pos, Nivel) ➝ nat
-nivelMax(d) ≡ if d = 
+nivelMax(d) ≡   if vacio?(claves(d)) 
+                    then 0
+                    else max(obtener(dameUno(claves(d))), nivelMax(borrar(dameUno(claves(d)), d)))
+                fi
+
+
+TAD dicc
+obtener(clave, dicc)
+borrar(clave, dicc)
