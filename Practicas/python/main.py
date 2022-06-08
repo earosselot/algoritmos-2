@@ -13,7 +13,6 @@ def contarParejasAux(lista, parejas):
 
 def merge(lista1, lista2, parejas):
 
-
 if __name__ == '__main__':
     lista = [1, 3]
     print(contarParejas(lista) == 0)

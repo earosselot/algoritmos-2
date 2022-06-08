@@ -1,0 +1,46 @@
+[a0, a1, a2, a3, ...., an-1]
+
+[1, 2, 3, 4, 5]
+
+d - 0 - 0 - 1
+h - 5 - 2 - 2
+m - 2 - 1 - 
+
+i = ai
+
+existePosicion(a: arreglo) -> res: bool
+
+    return existePosAux(a, 0, longitud(a) - 1)
+
+
+existePosAux(a: arreglo, d: nat, h: nat) -> res: bool
+    
+    if d + 1 = h: 
+        return a[d] = d + 1
+
+    m = (d + h) / 2
+
+    if (m + 1 = a[m]):
+        return true
+    else if (m < a[m]):
+        // tengo que mirar desde d hasta m
+        return existePosAux(a, d, m)
+    else:
+        // tengo que mirar desde m hasta h
+        return existePosAux(a, m, h)
+
+  0  1  2  3
+[-1, 0, 2, 5]
+
+ 0  1  2  3
+[0, 6, 9, 10]
+
+
+Complejidad:
+T(n) = 1 T(n/2) + O(1)
+a = 1
+c = 2
+f(n) = O(1)
+log_c(a) = 0
+f(n) ∈ Tita(1) ? True => caso2
+T(n) = O(n^(log_c(a)) log(n)) = O(n^0 log(n)) = O(log(n))
