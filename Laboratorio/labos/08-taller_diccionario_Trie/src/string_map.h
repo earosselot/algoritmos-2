@@ -88,25 +88,12 @@ private:
 
         Nodo() : siguientes(256, nullptr), definicion(nullptr) {};
         Nodo(T* def) : siguientes(256, nullptr),definicion(def) {};
-
-        int count(const string& clave, int offset) const;
-        bool insert(const pair<string, T>& par, int offset);
-        const T& at(const string& clave, int offset) const;
-        T& at(const string& clave, int offset);
-        bool erase(const string& clave, int);
-
-        void mostrar(std::ostream&, string clave);
-        friend ostream& operator<<(ostream& os, Nodo& n) {
-            n.mostrar(os, "");
-            return os;
-        }
-
-        void vaciar();
-        void traverseAndCopy(string_map<T> &copia, const string &clave);
     };
 
     Nodo* _raiz;
     int _size;
+
+    void insertAux(pair<string, T> const &par, int index, Nodo *padre);
 };
 
 #include "string_map.hpp"

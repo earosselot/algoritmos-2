@@ -16,8 +16,8 @@ file(GLOB SOURCE_FILES src/*.cpp src/*.h src/*.hpp)
 # Leemos todos los archivos de test en ./tests
 file(GLOB TEST_SOURCES tests/*.cpp)
 
-add_executable(correrTests ${SOURCE_FILES} string_map_tests.cpp.txt)
-add_executable(correrTests_ext ${SOURCE_FILES} string_map_tests.cpp.txt)
+add_executable(correrTests ${SOURCE_FILES} tests/string_map_tests.cpp)
+add_executable(correrTests_ext ${SOURCE_FILES} tests/string_map_tests.cpp)
 
 # Necesitamos asociar los archivos del framework de testing
 target_link_libraries(correrTests gtest gtest_main)
