@@ -1,0 +1,10 @@
+Ejercicio 13.
+
+El sistema pide que las operaciones puntos, regPartido y pos deben realizarse en O(log n), donde n es la cantidad de equipos registrados.
+
+a. Describir la estructura a utilizar
+
+    TORNEO se representa con estr
+        donde estr es Tupla()
+
+b. Escribir un pseudocodigo del algoritmo para las opearaciones con requerimiento de complejidad (puntos, regPartido y pos).

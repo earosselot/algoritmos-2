@@ -16,16 +16,16 @@ file(GLOB SOURCE_FILES src/*.cpp src/*.h src/*.hpp)
 # Leemos todos los archivos de test en ./tests
 file(GLOB TEST_SOURCES tests/*.cpp)
 
-add_executable(correrTests ${SOURCE_FILES} tests/string_map_tests.cpp)
-#add_executable(correrTests_ext ${SOURCE_FILES} tests/string_map_tests.cpp)
+add_executable(correrTests ${SOURCE_FILES} string_map_tests.cpp.txt)
+add_executable(correrTests_ext ${SOURCE_FILES} string_map_tests.cpp.txt)
 
 # Necesitamos asociar los archivos del framework de testing
 target_link_libraries(correrTests gtest gtest_main)
-#target_link_libraries(correrTests_ext gtest gtest_main)
+target_link_libraries(correrTests_ext gtest gtest_main)
 
 # Test suites a ejecutar
 add_test(correrTests string_map_test)
-#add_test(correrTests_ext string_map_test)
+add_test(correrTests_ext string_map_test)
 
 # Target para correr Valgrind
 add_custom_target(correrValgrind
@@ -33,4 +33,4 @@ add_custom_target(correrValgrind
         DEPENDS correrTests)
 
 # Define
-#target_compile_definitions(correrTests_ext PUBLIC EXT)
+target_compile_definitions(correrTests_ext PUBLIC EXT)

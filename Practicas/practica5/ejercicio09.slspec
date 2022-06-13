@@ -1,0 +1,95 @@
+alumno es tupla<nombre: string, genero: GEN, puntaje: Nota>
+donde GEN es enum{masc, fem} y Nota es un Nat no mayor que 10.
+
+planilla es arreglo<alumno>
+
+- Asumo que las notas van de 1 a 10 (no hay nota 0)
+
+1. Proponer algoritmo de ordenamiento ordenarPlanilla(inout p: planilla)
+
+ordenarPlanilla(inout p: planilla) {
+    arreglo<lista<alumno>> arregloNotas <- crearArreglo()   // O(1)
+    for i in [0... 9] 
+        arregloNotas[i] <- vacia()
+
+    for (i in [0... #p-1]) {                        // O(n)
+        arregloNotas[p[i].puntaje - 1].agregarAtras(p[j])
+        agregarAtras(arregloNotas[p[i].puntaje - 1], p[j])
+    }
+    j <- 0                                          // O(1)
+    for (i in [0... (#arregloNotas - 1)]) {         // O(n)
+        it <- crearIterador(arregloNotas[i])
+        while (haySiguiente(it)) {
+            p[j] = siguiente(it)
+            avanzar(it)
+            j++
+        }
+    }
+
+    arreglo<lista<alumnos>> arregloGeneros <- crearArreglo()           // O(1)
+    for i in [0, 1]
+        arregloGeneros[i] <- vacia()
+
+    for (i in (0... longuitud(p)-1)) {            // O(n)
+        if p[i].GEN = fem then
+            arregloGeneros[0].agregarAtras(p[i])
+        else
+            arregloGeneros[1].agregarAtras(p[i])
+    }
+    j <- 0                                        // O(1)
+    for (i in [0... (#arregloGeneros - 1)]) {     // O(n)
+        it <- crearIterador(arregloGeneros[i])
+        while (haySiguiente(it)) {
+            p[j] = siguiente(it)
+            avanzar(it)
+            j++
+        }
+    }
+}
+
+
+2. Modificar si Gen es un enumerado acotado mas grande
+
+ordenarPlanilla(inout p: planilla) {
+    arregloNotas <- new Vector(10)                  // O(1)
+    for (i in [0... #p-1]) {                        // O(n)
+        arregloNotas[p[i].puntaje - 1].agregarAtras(p[j])
+    }
+    j <- 0                                          // O(1)
+    for (i in [0... (#arregloNotas - 1)]) {         // O(n)
+        it <- crearIterador(arregloNotas[i])
+        while (haySiguiente(it)) {
+            p[j] = siguiente(it)
+            avanzar(it)
+            j++
+        }
+    }
+
+    arregloGeneros <- new Vector(#Gen)             // O(1)
+    arregloGeneros[0] <- new Lista()               // O(1)
+    arregloGeneros[1] <- new Lista()               // O(1)
+    for (i in (0... longuitud(p)-1)) {             // O(n)
+        arregloGeneros[Ordinal(p[i].genero)].agregarAtras(p)
+    }
+    j <- 0                                         // O(1)
+    for (i in [0... (#arregloGeneros - 1)]) {      // O(n)
+        it <- crearIterador(arregloGeneros[i])
+        while (haySiguiente(it)) {
+            p[j] = siguiente(it)
+            avanzar(it)
+            j++
+        }
+    }
+}
+
+Ordinal(gen: Gen) -> res: nat {
+    i <- 0
+    for (g in Gen) {
+        if (gen = g) {
+            return i
+        }
+        i++
+    }
+}
+
+3. No porque esa cota se refiere solo a los algoritmos que realizan comparaciones entre elementos. Estos algoritmos no compara elementos.
