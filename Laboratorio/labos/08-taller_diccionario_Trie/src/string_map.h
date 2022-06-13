@@ -5,7 +5,7 @@
 
 using namespace std;
 
-template<typename T>
+template<class T>
 class string_map {
 public:
     /**
@@ -34,14 +34,13 @@ public:
     INSERT 
     * Inserta un par clave, valor en el diccionario
     **/
-    void insert(const pair<string, T>&);
+    void insert(const pair<string, T>& par);
 
     /**
     COUNT
     * Devuelve la cantidad de apariciones de la clave (0 o 1).
     * Sirve para identificar si una clave está definida o no.
     **/
-
     int count(const string &key) const;
 
     /**
@@ -81,14 +80,16 @@ public:
 private:
 
     struct Nodo {
-        vector<Nodo*> siguientes;
+        vector<Nodo*> siguientes; // int(char) -> devuelve el numero ASCII
         T* definicion;
+        Nodo(): siguientes(256, nullptr), definicion(nullptr) {};
+        explicit Nodo(T* def): siguientes(256, nullptr), definicion(def) {};
     };
 
-    Nodo* raiz;
+    Nodo* _raiz;
     int _size;
-};
 
-#include "string_map.hpp"
+    void insertAux(pair<string, T> const &par, int index, Nodo *padre);
+};
 
 #endif // STRING_MAP_H_
