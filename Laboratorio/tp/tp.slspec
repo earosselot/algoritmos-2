@@ -48,7 +48,7 @@ nivelMaxUnidas: SimCity ➝ nat
 nivelMaxUnidas(a) ≡ max(nivelMaxConstruccion(dameUno(claves(unidos(a)))), nivelMaxUnidas(borrar(dameUno(claves(unidos(a)))), unidos(a)))
 
 nivelMax: dicc(pos, Nivel) ➝ nat
-<<<<<<< HEAD
+
 nivelMax(d) ≡   if vacio?(claves(d)) 
                     then 0
                     else max(obtener(dameUno(claves(d))), nivelMax(borrar(dameUno(claves(d)), d)))
@@ -58,7 +58,8 @@ nivelMax(d) ≡   if vacio?(claves(d))
 TAD dicc
 obtener(clave, dicc)
 borrar(clave, dicc)
-=======
+
+
 nivelMax(d) ≡ if d = 
 
 
@@ -78,4 +79,3 @@ agregarNuevasConstrucciones(construcciones, nuevas, constr) ≡
     fi
 
 aumentarNiveles: dicc(Pos, Nivel) ➝ dicc(Pos, Nivel)
->>>>>>> e6d10ff31189682df9d853a1cfa12311d0e9bc46

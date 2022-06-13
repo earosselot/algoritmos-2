@@ -1,0 +1,39 @@
+Dado un arreglo montaña de longitud n, queremos encontrar el maximo.
+La complejidad del algoritmo que resuelva el problema debe ser O(log n)
+    - Un arreglo montaña esta compuesto por una secuencia estrictamente creciente seguida de una estrictamente decreciente
+    - Sumponemos que hay al menos un elemento antes y despues que el maximo, ya que las secuencias creciente y decreciente tienen al menos 2 elementos.
+
+
+[P, x, x, x, x, x, x, x, M, y, y, y, y, U]
+
+x < m < y
+
+x < m
+
+montana(arreglo<nat> a) {
+
+    medio = #a / 2; // division entera
+    if (a[medio] > a[medio-1] && a[medio] > a[medio+1]) {
+        // estoy en el medio
+        return a[medio]
+    } else if (a[medio] > a[medio-1]) {
+        // estoy en la primer mitad
+        // me quedo con la segunda mitad
+        return montana(tomarUltimos(a, medio))
+    } else if (a[medio] > a[medio+1]) {
+        // estoy en la segunda mitad
+        // me quedo con la primer mitad
+        return montana(tomarPrimeros(a, medio))
+    }
+}
+
+
+T(n) = 1 T(n/2) + O(1)
+a=1
+c=2
+caso2:
+f(n) = O(1)
+log_c (a) = 0
+n**(log_c (a)) = n ** 0 = 1
+f(n) = Tita(n**(log_c (a))) = O(1)
+⟹ T(n) = Tita(n**(log_c (a)) log(n)) = Tita(log(n))

@@ -1,0 +1,41 @@
+
+tamano = 2 ^ x   -> 1 - 2 - 4 - 8 - 16 - 32
+- "MALI": la + de los elem de la mitad izq es mayor a la suma de los elem de la mitad der
+- cada una de sus mitades es a la vez "MALI"
+
+
+mali(a: arreglo, d: nat, h: nat) -> res: bool
+    return sumaYMALI(a, d, h).SCND  // O(1)
+
+
+sumaYMALI(a: arreglo, d: nat, h: nat) -> res: tupla(nat, bool)
+
+    if (d + 1 = h):              // O(1)
+        return <a[d], true>
+    endif
+
+    m = (d + h) / 2              // O(1)                    
+
+    suma1 = sumaYMALI(a, d, m)   // T(n/2)
+    suma2 = sumaYMALI(a, m, h)   // T(n/2)
+
+    return <suma1.FST+suma2.FST, suma1.SCND and suma2.SCND>  // O(1)
+
+
+Complejidad:
+
+T(n) = 2 T(n/2) + O(1)
+
+
+a = 2
+c = 2
+log_c(a) = 1
+caso 1
+ε = 1
+O(1) = Tita(1)
+
+T(n) = O(n)
+
+
+
+

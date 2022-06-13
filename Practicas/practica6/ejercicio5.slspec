@@ -1,0 +1,9 @@
+potencia(m: matriz4x4, n: nat) -> res: matriz4x4
+
+n es potencia de 2 
+A¹ + A² + ... + Aⁿ
+
+
+sumaPotencias(m: matriz4x4, n: nat) -> res: matriz4x4
+
+

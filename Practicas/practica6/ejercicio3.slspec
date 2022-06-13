@@ -1,0 +1,39 @@
+Encuentre un metodo para calcular aᵇ en tiempo logaritmico en b.
+Reutilizar resultados
+
+
+
+aᵇ  = a^(b/2) * a^(b/2) 
+    = a^(b/4) * a^(b/4) * a^(b/4) * a^(b/4)
+
+aᵇ  = a * a * a * a * ... * a * a       (b veces)
+    = a^2   * a^2   *     * a^2         (b/2 veces)
+    = ...
+
+a¹⁰ = a⁵ * a⁵
+a⁵  = a³ * a²
+a³  = a² * a¹
+a²  = a¹ * a¹
+
+aᵇ  = aᶜ * aᵈ
+
+potencia(a: nat, b: nat) -> res: nat
+
+    if b = 0:           // O(1)
+        return 1
+    if b = 1:           // O(1)
+        return a
+    res = potencia(a, b/2) // division entera  // T(b/2)
+    res = res * res     // O(1)
+    if (b % 2 = 1):     // O(1)
+        res = res * a   // O(1)
+    return res          // O(1)
+
+T(b) = 1 T(b/2) + O(1)
+a = 1
+c = 2
+log_c(a) = 0
+b ^ (log_c(a)) = b^0 = 1
+f(b) = O(1) ∈ Tita(1) => caso 2
+T(b) = O(b^(log_c(a)) * log b) = O(log b)
+
